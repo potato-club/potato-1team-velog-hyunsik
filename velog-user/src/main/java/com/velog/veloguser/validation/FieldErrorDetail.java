@@ -1,4 +1,4 @@
-package com.velog.veloguser.validator;
+package com.velog.veloguser.validation;
 
 import lombok.*;
 import org.springframework.context.MessageSource;

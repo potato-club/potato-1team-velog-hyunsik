@@ -1,7 +1,7 @@
 package com.velog.veloguser.exception;
 
 import com.velog.veloguser.domain.utils.Result;
-import com.velog.veloguser.validator.ValidationResult;
+import com.velog.veloguser.validation.ValidationResult;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.MessageSource;

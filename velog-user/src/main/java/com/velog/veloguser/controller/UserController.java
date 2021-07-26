@@ -4,6 +4,7 @@ import com.velog.veloguser.domain.utils.Result;
 import com.velog.veloguser.domain.dto.request.UserCreateRequest;
 import com.velog.veloguser.domain.dto.response.UserResponse;
 import com.velog.veloguser.service.UserService;
+import com.velog.veloguser.validation.ValidationUtils;
 import javassist.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.BindException;
@@ -20,6 +21,7 @@ public class UserController {
 
     @PostMapping("createUser")
     public Result<UserResponse> createUser(@RequestBody @Valid UserCreateRequest request, BindingResult bindingResult) throws BindException, NotFoundException {
-        return Result.success(userService.createUser(request, bindingResult));
+        ValidationUtils.validateBindingResult(bindingResult);
+        return Result.success(userService.createUser(request));
     }
 }
