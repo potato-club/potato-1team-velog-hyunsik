@@ -21,3 +21,11 @@ eureka:
       defaultZone: http://localhost:8761/eureka
 
 
+logging:
+  level:
+    com.velog.veloguser: DEBUG
+
+token:
+  expiration_time: 86400000
+  secret: potato_velog
+

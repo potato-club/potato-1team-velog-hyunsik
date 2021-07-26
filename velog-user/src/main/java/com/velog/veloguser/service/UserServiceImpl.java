@@ -6,6 +6,7 @@ import com.velog.veloguser.domain.entity.User;
 import com.velog.veloguser.exception.AlreadyExistException;
 import com.velog.veloguser.repository.UserRepository;
 import com.velog.veloguser.validation.ValidationUtils;
+import javassist.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -34,6 +35,9 @@ public class UserServiceImpl implements UserService {
         User savedUser = userRepository.save(user);
         return UserResponse.of(savedUser.getEmail(), savedUser.getName(), savedUser.getUserId());
     }
+
+
+
 
 
 }

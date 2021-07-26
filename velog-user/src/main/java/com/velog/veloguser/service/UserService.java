@@ -9,4 +9,5 @@ import org.springframework.validation.BindException;
 public interface UserService {
 
     UserResponse createUser(UserCreateRequest request) throws NotFoundException, AlreadyExistException, BindException;
+
 }
