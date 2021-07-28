@@ -1,0 +1,11 @@
+server:
+  port: 8888
+
+spring:
+  application:
+    name: potato-velog-config
+  cloud:
+    config:
+      server:
+        git:
+          uri: file://C:\Spring\potato-velog-hyunsik\velog-config

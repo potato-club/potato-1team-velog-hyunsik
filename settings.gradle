@@ -1,5 +1,5 @@
 rootProject.name = 'potato-velog'
 include 'velog-eureka'
 include 'velog-user'
-include 'velog-board'
+include 'velog-config'
 include 'velog-gateway'
