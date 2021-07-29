@@ -8,4 +8,4 @@ spring:
     config:
       server:
         git:
-          uri: file://C:\Spring\potato-velog-hyunsik\velog-config
+          uri: https://github.com/hyun6ik/Velog-GitRepository.git

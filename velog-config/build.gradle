@@ -25,7 +25,9 @@ ext {
 dependencies {
 
 // https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-config-server
-    implementation group: 'org.springframework.cloud', name: 'spring-cloud-config-server', version: '3.0.4'
+    implementation group: 'org.springframework.cloud', name: 'spring-cloud-config-server', version: '3.0.3'
+
+
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
 

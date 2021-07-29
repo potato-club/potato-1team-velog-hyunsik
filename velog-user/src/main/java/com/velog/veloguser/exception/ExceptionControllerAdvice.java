@@ -37,7 +37,7 @@ public class ExceptionControllerAdvice {
 
     @ExceptionHandler(BindException.class)
     @ResponseStatus(BAD_REQUEST)
-    protected ValidationResult handleBindException(BindException bindException){
+    protected ValidationResult handleBindException(BindException bindException) {
         return ValidationResult.error(bindException, messageSource);
     }
 

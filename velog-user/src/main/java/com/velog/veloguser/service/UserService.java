@@ -13,5 +13,4 @@ public interface UserService {
 
     UserResponse createUser(UserCreateRequest request) throws NotFoundException, AlreadyExistException, BindException;
 
-    UserResponse login(HttpServletRequest request, LoginRequest loginRequest) throws NotFoundException;
 }

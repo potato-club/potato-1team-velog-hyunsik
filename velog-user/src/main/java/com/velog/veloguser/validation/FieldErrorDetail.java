@@ -16,7 +16,7 @@ public class FieldErrorDetail {
     private final String message;
 
 
-    public static FieldErrorDetail of(FieldError fieldError, MessageSource messageSource){
+    public static FieldErrorDetail of(FieldError fieldError, MessageSource messageSource) {
         return new FieldErrorDetail(
                 fieldError.getObjectName(),
                 fieldError.getField(),

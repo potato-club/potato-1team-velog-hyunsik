@@ -25,7 +25,14 @@ logging:
   level:
     com.velog.veloguser: DEBUG
 
-token:
-  expiration_time: 86400000
-  secret: potato_velog
+management:
+  endpoint:
+  endpoints:
+    web:
+      exposure:
+        include: refresh, health, beans
+
+#token:
+#  expiration_time: 86400000
+#  secret: potato_velog
 

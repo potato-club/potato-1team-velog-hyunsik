@@ -10,7 +10,7 @@ import javax.validation.constraints.*;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class LoginRequest{
+public class LoginRequest {
 
     @NotBlank
     @Size(min = 2)

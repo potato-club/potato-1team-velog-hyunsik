@@ -29,6 +29,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable();
         http
+                .authorizeRequests().antMatchers("/actuator/**").permitAll();
+        http
                 .addFilter(customAuthenticationFilter());
         http
                 .headers().frameOptions().disable();

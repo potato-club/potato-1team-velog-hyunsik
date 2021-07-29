@@ -33,6 +33,22 @@ spring:
         - id: potato-velog-user
           uri: lb://POTATO-VELOG-USER
           predicates:
+            - Path=/potato-velog-user/wasCheck
+            - Method=GET
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/potato-velog-user/(?<segment>.*), /$\{segment}
+        - id: potato-velog-user
+          uri: lb://POTATO-VELOG-USER
+          predicates:
+            - Path=/potato-velog-user/actuator/**
+            - Method=GET,POST
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/potato-velog-user/(?<segment>.*), /$\{segment}
+        - id: potato-velog-user
+          uri: lb://POTATO-VELOG-USER
+          predicates:
             - Path=/potato-velog-user/**
             - Method=GET
           filters:
@@ -43,8 +59,11 @@ spring:
           uri: lb://POTATO-VELOG-BOARD
           predicates:
             - Path=/potato-velog-board/**
-
-
-
 token:
   secret: potato_velog
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh, beans, health, httptrace

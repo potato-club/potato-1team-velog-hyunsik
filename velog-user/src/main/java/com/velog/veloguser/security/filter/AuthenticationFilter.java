@@ -43,7 +43,6 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     }
 
 
-
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request,
                                                 HttpServletResponse response) throws AuthenticationException {
@@ -74,13 +73,11 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
         UserResponse userDetails = customUserDetailsService.findUserByEmail(email);
 
 
-
         String token = Jwts.builder()
                 .setSubject(userDetails.getUserId())
                 .setExpiration(new Date(System.currentTimeMillis() + Long.parseLong(Objects.requireNonNull(env.getProperty("token.expiration_time")))))
                 .signWith(SignatureAlgorithm.HS512, env.getProperty("token.secret"))
                 .compact();
-
 
 
         response.addHeader("token", token);
