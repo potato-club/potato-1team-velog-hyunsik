@@ -13,6 +13,12 @@ spring:
       settings:
         web-allow-others: true
       path: /h2-console
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+
 eureka:
   client:
     register-with-eureka: true
@@ -26,11 +32,10 @@ logging:
     com.velog.veloguser: DEBUG
 
 management:
-  endpoint:
   endpoints:
     web:
       exposure:
-        include: refresh, health, beans
+        include: refresh, health, beans, busrefresh
 
 #token:
 #  expiration_time: 86400000

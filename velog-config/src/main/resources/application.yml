@@ -9,3 +9,14 @@ spring:
       server:
         git:
           uri: https://github.com/hyun6ik/Velog-GitRepository.git
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,busrefresh
