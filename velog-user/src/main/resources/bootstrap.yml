@@ -2,6 +2,6 @@ spring:
   cloud:
     config:
       uri: http://localhost:8888
-      name: potato-velog-config
+      name: potato-velog-user
 #  profiles:
 #    active: dev
