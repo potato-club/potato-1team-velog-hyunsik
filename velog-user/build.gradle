@@ -58,6 +58,10 @@ dependencies {
     // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-amqp
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-amqp', version: '2.5.2'
 
+    // https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-starter-openfeign
+    implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-openfeign', version: '3.0.3'
+
+
 
     runtimeOnly 'com.h2database:h2'
 }
