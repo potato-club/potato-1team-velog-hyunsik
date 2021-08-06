@@ -17,7 +17,7 @@ import static org.springframework.http.HttpStatus.BAD_REQUEST;
 @RestController
 @Slf4j
 @RequiredArgsConstructor
-public class customControllerAdvice {
+public class CustomControllerAdvice {
 
     private final MessageSource messageSource;
 

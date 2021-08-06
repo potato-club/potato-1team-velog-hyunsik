@@ -33,5 +33,12 @@ public class AuthServiceImpl implements AuthService {
         return TokenResponse.of(jwt);
     }
 
+    @Override
+    public HttpHeaders addHeaders(TokenResponse tokenResponse) {
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.add(JwtFilter.AUTHORIZATION_HEADER, tokenResponse.getToken());
+        return httpHeaders;
+    }
+
 
 }

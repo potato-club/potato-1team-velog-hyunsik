@@ -25,8 +25,6 @@ public class BoardController {
 
     @PostMapping("createBoard")
     public Result<BoardResponse> createBoard(@Valid @RequestBody BoardRequest request, BindingResult bindingResult, @RequestHeader(name = "Authorization") String token) throws BindException {
-
-        System.out.println("token = " + token);
         ValidationUtils.validateBindingResult(bindingResult);
         return Result.success(boardService.createBoard(request, token));
     }

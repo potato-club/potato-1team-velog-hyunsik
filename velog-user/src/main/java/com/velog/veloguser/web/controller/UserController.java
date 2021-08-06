@@ -41,16 +41,4 @@ public class UserController {
         return Result.success(userService.createUser(request));
     }
 
-
-    @PostMapping("getUserId")
-    public String getUserId(@RequestBody String token) {
-        System.out.println("유저아이디 줄게");
-        return userService.getUserId(token);
-    }
-
-    @GetMapping("validateUserId")
-    public void validateUserId(String userId) throws NotFoundException {
-        System.out.println("유저아이디 검증해줄게");
-        userService.validateUserId(userId);
-    }
 }

@@ -27,4 +27,8 @@ public class BoardResponse {
         this.content = board.getContent();
         this.userId = board.getUserId();
     }
+
+    public static BoardResponse of(Board board) {
+        return new BoardResponse(board);
+    }
 }

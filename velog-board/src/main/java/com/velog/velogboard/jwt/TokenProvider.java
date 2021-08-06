@@ -11,7 +11,7 @@ import org.springframework.util.StringUtils;
 @Slf4j
 public class TokenProvider {
 
-    private Environment env;
+    private final Environment env;
 
     public TokenProvider(Environment env) {
         this.env = env;
