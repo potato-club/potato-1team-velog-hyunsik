@@ -1,14 +1,18 @@
 package com.velog.veloguser.web.controller;
 
 import com.velog.veloguser.domain.utils.Result;
+import com.velog.veloguser.security.PrincipalDetails;
 import com.velog.veloguser.web.dto.request.UserCreateRequest;
+import com.velog.veloguser.web.dto.response.UserIdResponse;
 import com.velog.veloguser.web.dto.response.UserResponse;
 import com.velog.veloguser.service.user.UserService;
 import com.velog.veloguser.web.validation.ValidationUtils;
 import javassist.NotFoundException;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.env.Environment;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -35,5 +39,18 @@ public class UserController {
     public Result<UserResponse> createUser(@RequestBody @Valid UserCreateRequest request, BindingResult bindingResult) throws BindException, NotFoundException {
         ValidationUtils.validateBindingResult(bindingResult);
         return Result.success(userService.createUser(request));
+    }
+
+
+    @PostMapping("getUserId")
+    public String getUserId(@RequestBody String token) {
+        System.out.println("유저아이디 줄게");
+        return userService.getUserId(token);
+    }
+
+    @GetMapping("validateUserId")
+    public void validateUserId(String userId) throws NotFoundException {
+        System.out.println("유저아이디 검증해줄게");
+        userService.validateUserId(userId);
     }
 }

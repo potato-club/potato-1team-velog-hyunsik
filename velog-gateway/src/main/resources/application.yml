@@ -22,45 +22,11 @@ spring:
         - id: potato-velog-user
           uri: lb://POTATO-VELOG-USER
           predicates:
-            - Path=/potato-velog-user/login
+            - Path=/potato-velog-user/createUser, /potato-velog-user/authenticate
             - Method=POST
           filters:
             - RemoveRequestHeader=Cookie
             - RewritePath=/potato-velog-user/(?<segment>.*), /$\{segment}
-        - id: potato-velog-user
-          uri: lb://POTATO-VELOG-USER
-          predicates:
-            - Path=/potato-velog-user/getUserId
-            - Method=GET
-          filters:
-            - RemoveRequestHeader=Cookie
-            - RewritePath=/potato-velog-user/(?<segment>.*), /$\{segment}
-            - AuthorizationHeaderFilter
-        - id: potato-velog-user
-          uri: lb://POTATO-VELOG-USER
-          predicates:
-            - Path=/potato-velog-user/authenticate
-            - Method=POST
-          filters:
-            - RemoveRequestHeader=Cookie
-            - RewritePath=/potato-velog-user/(?<segment>.*), /$\{segment}
-        - id: potato-velog-user
-          uri: lb://POTATO-VELOG-USER
-          predicates:
-            - Path=/potato-velog-user/createUser
-            - Method=POST
-          filters:
-            - RemoveRequestHeader=Cookie
-            - RewritePath=/potato-velog-user/(?<segment>.*), /$\{segment}
-        - id: potato-velog-user
-          uri: lb://POTATO-VELOG-USER
-          predicates:
-            - Path=/potato-velog-user/wasCheck
-            - Method=GET
-          filters:
-            - RemoveRequestHeader=Cookie
-            - RewritePath=/potato-velog-user/(?<segment>.*), /$\{segment}
-            - AuthorizationHeaderFilter
         - id: potato-velog-user
           uri: lb://POTATO-VELOG-USER
           predicates:
@@ -73,7 +39,7 @@ spring:
           uri: lb://POTATO-VELOG-USER
           predicates:
             - Path=/potato-velog-user/**
-            - Method=GET
+            - Method=GET,POST
           filters:
             - RemoveRequestHeader=Cookie
             - RewritePath=/potato-velog-user/(?<segment>.*), /$\{segment}
@@ -82,6 +48,11 @@ spring:
           uri: lb://POTATO-VELOG-BOARD
           predicates:
             - Path=/potato-velog-board/**
+            - Method=GET,POST
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/potato-velog-board/(?<segment>.*), /$\{segment}
+            - AuthorizationHeaderFilter
 token:
   secret: potato_velog
 

@@ -12,5 +12,4 @@ public interface AuthService {
 
     TokenResponse login(LoginRequest loginRequest) throws IOException, NotFoundException;
 
-    UserIdResponse getUserId(PrincipalDetails principalDetails);
 }
