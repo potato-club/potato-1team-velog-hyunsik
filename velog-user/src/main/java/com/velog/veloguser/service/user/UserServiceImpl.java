@@ -1,7 +1,9 @@
 package com.velog.veloguser.service.user;
 
 import com.velog.veloguser.security.jwt.TokenProvider;
+import com.velog.veloguser.web.client.BoardServiceClient;
 import com.velog.veloguser.web.dto.request.UserCreateRequest;
+import com.velog.veloguser.web.dto.response.BoardResponse;
 import com.velog.veloguser.web.dto.response.UserResponse;
 import com.velog.veloguser.domain.entity.User;
 import com.velog.veloguser.exception.AlreadyExistException;
@@ -12,6 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -22,6 +25,7 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final TokenProvider tokenProvider;
+    private final BoardServiceClient apiClient;
 
 
     @Transactional
@@ -46,5 +50,10 @@ public class UserServiceImpl implements UserService {
         if (userRepository.findUserByUserId(userId).isEmpty()) {
             throw new NotFoundException("존재 하지 않는 계정입니다.");
         }
+    }
+
+    @Override
+    public List<BoardResponse> retrieveBoardList(String token) {
+       return apiClient.myBoardList(token);
     }
 }

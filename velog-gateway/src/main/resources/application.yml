@@ -43,7 +43,15 @@ spring:
           filters:
             - RemoveRequestHeader=Cookie
             - RewritePath=/potato-velog-user/(?<segment>.*), /$\{segment}
-            - AuthorizationHeaderFilter
+#            - AuthorizationHeaderFilter
+        - id: potato-velog-board
+          uri: lb://POTATO-VELOG-BOARD
+          predicates:
+            - Path=/potato-velog-board/myBoardList
+            - Method=GET
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/potato-velog-board/(?<segment>.*), /$\{segment}
         - id: potato-velog-board
           uri: lb://POTATO-VELOG-BOARD
           predicates:
@@ -52,7 +60,7 @@ spring:
           filters:
             - RemoveRequestHeader=Cookie
             - RewritePath=/potato-velog-board/(?<segment>.*), /$\{segment}
-            - AuthorizationHeaderFilter
+#            - AuthorizationHeaderFilter
 token:
   secret: potato_velog
 
