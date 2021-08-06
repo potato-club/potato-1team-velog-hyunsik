@@ -1,4 +1,4 @@
-package com.velog.veloguser.domain.dto.request;
+package com.velog.veloguser.web.dto.request;
 
 import lombok.*;
 

@@ -1,10 +1,10 @@
-package com.velog.veloguser.controller;
+package com.velog.veloguser.web.controller;
 
 import com.velog.veloguser.domain.utils.Result;
-import com.velog.veloguser.domain.dto.request.UserCreateRequest;
-import com.velog.veloguser.domain.dto.response.UserResponse;
-import com.velog.veloguser.service.UserService;
-import com.velog.veloguser.validation.ValidationUtils;
+import com.velog.veloguser.web.dto.request.UserCreateRequest;
+import com.velog.veloguser.web.dto.response.UserResponse;
+import com.velog.veloguser.service.user.UserService;
+import com.velog.veloguser.web.validation.ValidationUtils;
 import javassist.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,11 +17,11 @@ import javax.validation.Valid;
 @RestController
 @Slf4j
 @RequiredArgsConstructor
-@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class UserController {
 
     private final UserService userService;
     private final Environment env;
+
 
     @GetMapping("wasCheck")
     public String status() {

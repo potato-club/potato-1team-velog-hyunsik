@@ -1,4 +1,4 @@
-package com.velog.veloguser.domain.dto.response;
+package com.velog.veloguser.web.dto.response;
 
 import lombok.Builder;
 import lombok.Getter;

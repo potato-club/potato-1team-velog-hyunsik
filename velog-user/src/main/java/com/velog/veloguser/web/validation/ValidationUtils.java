@@ -1,4 +1,4 @@
-package com.velog.veloguser.validation;
+package com.velog.veloguser.web.validation;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;

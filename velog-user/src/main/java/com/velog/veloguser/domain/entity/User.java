@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -25,6 +26,7 @@ public class User extends BaseTimeEntity {
     private String userId;
     @Column(nullable = false, unique = true)
     private String encodedPassword;
+
 
     @Builder
     public User(String email, String name, String userId, String encodedPassword) {

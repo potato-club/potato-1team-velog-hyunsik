@@ -1,10 +1,8 @@
-package com.velog.veloguser.domain.dto.request;
+package com.velog.veloguser.web.dto.request;
 
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.stereotype.Service;
 
 import javax.validation.constraints.*;
 

@@ -1,18 +1,15 @@
-package com.velog.veloguser.service;
+package com.velog.veloguser.service.user;
 
-import com.velog.veloguser.domain.dto.request.LoginRequest;
-import com.velog.veloguser.domain.dto.request.UserCreateRequest;
-import com.velog.veloguser.domain.dto.response.UserResponse;
+import com.velog.veloguser.web.dto.request.UserCreateRequest;
+import com.velog.veloguser.web.dto.response.UserResponse;
 import com.velog.veloguser.domain.entity.User;
 import com.velog.veloguser.exception.AlreadyExistException;
 import com.velog.veloguser.repository.UserRepository;
-import javassist.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.UUID;
 
 @Service
@@ -22,6 +19,8 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+
+
 
     @Transactional
     @Override

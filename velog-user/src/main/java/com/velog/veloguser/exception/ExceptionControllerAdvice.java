@@ -1,10 +1,12 @@
 package com.velog.veloguser.exception;
 
 import com.velog.veloguser.domain.utils.Result;
-import com.velog.veloguser.validation.ValidationResult;
+import com.velog.veloguser.web.validation.ValidationResult;
+import javassist.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.MessageSource;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.validation.BindException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -27,10 +29,30 @@ public class ExceptionControllerAdvice {
         return Result.error(BAD_REQUEST.value(), e.getMessage());
     }
 
+    @ExceptionHandler(UsernameNotFoundException.class)
+    @ResponseStatus(BAD_REQUEST)
+    protected Result<Object> handleUsernameNotFoundException(UsernameNotFoundException e) {
+        log.error(e.getMessage(), e);
+        return Result.error(BAD_REQUEST.value(), e.getMessage());
+    }
 
     @ExceptionHandler(AlreadyExistException.class)
     @ResponseStatus(BAD_REQUEST)
     protected Result<Object> handleAlreadyExistException(AlreadyExistException e) {
+        log.error(e.getMessage(), e);
+        return Result.error(BAD_REQUEST.value(), e.getMessage());
+    }
+
+    @ExceptionHandler(NotFoundException.class)
+    @ResponseStatus(BAD_REQUEST)
+    protected Result<Object> handleNotFoundException(NotFoundException e) {
+        log.error(e.getMessage(), e);
+        return Result.error(BAD_REQUEST.value(), e.getMessage());
+    }
+
+    @ExceptionHandler(NotMatchException.class)
+    @ResponseStatus(BAD_REQUEST)
+    protected Result<Object> handleNotMatchException(NotMatchException e) {
         log.error(e.getMessage(), e);
         return Result.error(BAD_REQUEST.value(), e.getMessage());
     }

@@ -1,16 +1,13 @@
 package com.velog.veloguser.service;
 
-import com.velog.veloguser.domain.dto.request.UserCreateRequest;
-import com.velog.veloguser.domain.dto.response.UserResponse;
-import javassist.NotFoundException;
+import com.velog.veloguser.service.user.UserService;
+import com.velog.veloguser.web.dto.request.UserCreateRequest;
+import com.velog.veloguser.web.dto.response.UserResponse;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.validation.BindException;
-import org.springframework.validation.BindingResult;
 
 import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class UserServiceTest {

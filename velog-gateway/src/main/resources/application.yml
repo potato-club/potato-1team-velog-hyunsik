@@ -30,6 +30,23 @@ spring:
         - id: potato-velog-user
           uri: lb://POTATO-VELOG-USER
           predicates:
+            - Path=/potato-velog-user/getUserId
+            - Method=GET
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/potato-velog-user/(?<segment>.*), /$\{segment}
+            - AuthorizationHeaderFilter
+        - id: potato-velog-user
+          uri: lb://POTATO-VELOG-USER
+          predicates:
+            - Path=/potato-velog-user/authenticate
+            - Method=POST
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/potato-velog-user/(?<segment>.*), /$\{segment}
+        - id: potato-velog-user
+          uri: lb://POTATO-VELOG-USER
+          predicates:
             - Path=/potato-velog-user/createUser
             - Method=POST
           filters:

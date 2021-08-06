@@ -1,18 +1,18 @@
 package com.velog.veloguser.config;
 
-import com.velog.veloguser.security.filter.AuthenticationFilter;
-import com.velog.veloguser.service.CustomUserDetailsService;
-import com.velog.veloguser.service.UserService;
+import com.velog.veloguser.security.CustomUserDetailsService;
+import com.velog.veloguser.security.jwt.*;
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.env.Environment;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.filter.CorsFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -20,9 +20,21 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final CustomUserDetailsService customUserDetailsService;
+    private final CorsFilter corsFilter;
     private final PasswordEncoder passwordEncoder;
-    private final Environment env;
+    private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
+    private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
+    private final TokenProvider tokenProvider;
 
+    @Override
+    public void configure(WebSecurity web) {
+        web.ignoring()
+                .antMatchers(
+                        "/h2-console/**"
+                        ,"/favicon.ico"
+                        ,"/error"
+                );
+    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -31,9 +43,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests().antMatchers("/actuator/**").permitAll();
         http
-                .addFilter(customAuthenticationFilter());
+                .addFilterBefore(corsFilter, UsernamePasswordAuthenticationFilter.class)
+                .exceptionHandling()
+                .authenticationEntryPoint(jwtAuthenticationEntryPoint)
+                .accessDeniedHandler(jwtAccessDeniedHandler)
+                .and()
+                .headers()
+                .frameOptions()
+                .sameOrigin();
         http
                 .headers().frameOptions().disable();
+        http
+                .sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+        http
+                .apply(new JwtConfig(tokenProvider));
+
     }
 
     // 인증 처리
@@ -43,8 +68,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
 
-    // 검증 필터
-    private AuthenticationFilter customAuthenticationFilter() throws Exception {
-        return new AuthenticationFilter(authenticationManager(), customUserDetailsService, env);
-    }
+
 }
