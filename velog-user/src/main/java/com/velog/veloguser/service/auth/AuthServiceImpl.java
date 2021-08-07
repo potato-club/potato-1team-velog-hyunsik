@@ -40,5 +40,10 @@ public class AuthServiceImpl implements AuthService {
         return httpHeaders;
     }
 
+    @Override
+    public String validateToken(String token) {
+        return tokenProvider.validateTokenAndGetUserId(token);
+    }
+
 
 }

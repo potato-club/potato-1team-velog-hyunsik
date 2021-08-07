@@ -1,7 +1,6 @@
 package com.velog.velogboard.web.exceptionHandler;
 
 import com.velog.velogboard.domain.utils.Result;
-import com.velog.velogboard.exception.JwtTokenException;
 import com.velog.velogboard.validation.ValidationResult;
 import javassist.NotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -34,10 +33,4 @@ public class CustomControllerAdvice {
         return Result.error(BAD_REQUEST.value(), e.getMessage());
     }
 
-    @ExceptionHandler(JwtTokenException.class)
-    @ResponseStatus(BAD_REQUEST)
-    protected Result<Object> handleJwtTokenExceptionException(JwtTokenException e) {
-        log.error(e.getMessage(), e);
-        return Result.error(BAD_REQUEST.value(), e.getMessage());
-    }
 }

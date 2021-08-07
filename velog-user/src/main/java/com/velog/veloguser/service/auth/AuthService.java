@@ -14,4 +14,6 @@ public interface AuthService {
     TokenResponse login(LoginRequest loginRequest) throws IOException, NotFoundException;
 
     HttpHeaders addHeaders(TokenResponse tokenResponse);
+
+    String validateToken(String token);
 }

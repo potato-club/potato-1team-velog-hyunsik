@@ -1,4 +1,4 @@
-package com.velog.velogboard.exception;
+package com.velog.veloguser.exception;
 
 public class JwtTokenException extends BusinessException{
     public JwtTokenException(String message) {

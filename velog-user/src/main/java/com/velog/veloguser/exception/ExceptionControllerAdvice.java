@@ -63,5 +63,10 @@ public class ExceptionControllerAdvice {
         return ValidationResult.error(bindException, messageSource);
     }
 
-
+    @ExceptionHandler(JwtTokenException.class)
+    @ResponseStatus(BAD_REQUEST)
+    protected Result<Object> handleJwtTokenExceptionException(JwtTokenException e) {
+        log.error(e.getMessage(), e);
+        return Result.error(BAD_REQUEST.value(), e.getMessage());
+    }
 }

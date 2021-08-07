@@ -1,5 +1,6 @@
 package com.velog.veloguser.security.jwt;
 
+import com.velog.veloguser.exception.JwtTokenException;
 import com.velog.veloguser.security.CustomUserDetailsService;
 import com.velog.veloguser.security.PrincipalDetails;
 import io.jsonwebtoken.*;
@@ -7,10 +8,13 @@ import javassist.NotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import java.util.Date;
+import org.springframework.util.StringUtils;
 
+import java.util.Date;
+import java.util.Objects;
 
 
 @Slf4j
@@ -18,29 +22,20 @@ import java.util.Date;
 public class TokenProvider {
 
     private final CustomUserDetailsService customUserDetailsService;
-    private final String secret;
-    private final long tokenValidityInMilliseconds;
+    private final Environment env;
 
 
-    public TokenProvider(CustomUserDetailsService customUserDetailsService,
-                         @Value("${token.secret}") String secret, @Value("${token.expiration_time}") long tokenValidityInMilliseconds) {
+    public TokenProvider(CustomUserDetailsService customUserDetailsService, Environment env) {
         this.customUserDetailsService = customUserDetailsService;
-        this.secret = secret;
-        this.tokenValidityInMilliseconds = tokenValidityInMilliseconds;
+        this.env = env;
     }
-
-
 
     public String createToken(String userId) {
 
-        long now = (new Date()).getTime();
-        Date validity = new Date(now + this.tokenValidityInMilliseconds);
-
-
         return Jwts.builder()
                 .setSubject(userId)
-                .setExpiration(validity)
-                .signWith(SignatureAlgorithm.HS512, secret)
+                .setExpiration(new Date(System.currentTimeMillis() + Long.parseLong(Objects.requireNonNull(env.getProperty("token.expiration_time")))))
+                .signWith(SignatureAlgorithm.HS512, env.getProperty("token.secret"))
                 .compact();
     }
 
@@ -60,14 +55,29 @@ public class TokenProvider {
     //토큰에서 값 추출
     public Claims getToken(String token) {
         return Jwts.parser()
-                .setSigningKey(secret)
+                .setSigningKey(env.getProperty("token.secret"))
                 .parseClaimsJws(token)
                 .getBody();
     }
 
+    //토큰에서 값 추출
+    public String validateTokenAndGetUserId(String token) {
+        if (!validateToken(token)) {
+            throw new JwtTokenException("토큰 오류 입니다.");
+        }
+        try {
+            token = removeBear(token);
+            Claims claims = Jwts.parser().setSigningKey(env.getProperty("token.secret")).parseClaimsJws(token).getBody();
+            return claims.getSubject();
+        } catch (Exception e) {
+            throw new JwtTokenException("토큰 파싱 오류 입니다.");
+        }
+    }
+
     public boolean validateToken(String token) {
         try {
-            Jwts.parser().setSigningKey(secret).parseClaimsJws(token);
+            token = removeBear(token);
+            Jwts.parser().setSigningKey(env.getProperty("token.secret")).parseClaimsJws(token);
             return true;
         } catch (MalformedJwtException e) {
             log.info("잘못된 JWT 서명입니다.");
@@ -79,6 +89,13 @@ public class TokenProvider {
             log.info("JWT 토큰이 잘못되었습니다.");
         }
         return false;
+    }
+
+    private String removeBear(String token) {
+        if (StringUtils.hasText(token) && token.startsWith("Bearer ")) {
+            token = token.substring(7);
+        }
+        return token;
     }
 
 
