@@ -23,6 +23,8 @@ ext {
 }
 
 dependencies {
+    implementation project(':velog-common')
+
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
     implementation 'org.springframework.boot:spring-boot-starter-security'

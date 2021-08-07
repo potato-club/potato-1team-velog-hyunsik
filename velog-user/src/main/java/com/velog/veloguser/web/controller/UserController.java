@@ -1,12 +1,12 @@
 package com.velog.veloguser.web.controller;
 
-import com.velog.veloguser.domain.utils.Result;
+import com.velog.velogcommon.board.dto.response.BoardResponse;
+import com.velog.velogcommon.utils.Result;
+import com.velog.velogcommon.utils.validation.ValidationUtils;
 import com.velog.veloguser.web.client.BoardServiceClient;
-import com.velog.veloguser.web.dto.request.UserCreateRequest;
-import com.velog.veloguser.web.dto.response.BoardResponse;
-import com.velog.veloguser.web.dto.response.UserResponse;
+import com.velog.velogcommon.user.dto.request.UserCreateRequest;
+import com.velog.velogcommon.user.dto.response.UserResponse;
 import com.velog.veloguser.service.user.UserService;
-import com.velog.veloguser.web.validation.ValidationUtils;
 import javassist.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

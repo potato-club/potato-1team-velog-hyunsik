@@ -1,7 +1,7 @@
 package com.velog.veloguser.security;
 
-import com.velog.veloguser.domain.entity.User;
-import com.velog.veloguser.repository.UserRepository;
+import com.velog.velogcommon.user.entity.User;
+import com.velog.velogcommon.user.repository.UserRepository;
 import javassist.NotFoundException;
 import lombok.SneakyThrows;
 import org.springframework.security.core.userdetails.UserDetailsService;

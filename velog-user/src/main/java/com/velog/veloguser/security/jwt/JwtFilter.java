@@ -1,6 +1,6 @@
 package com.velog.veloguser.security.jwt;
 
-import com.velog.veloguser.exception.JwtTokenException;
+import com.velog.velogcommon.exception.JwtTokenException;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;

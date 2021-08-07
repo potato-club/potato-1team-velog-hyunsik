@@ -1,9 +1,7 @@
 package com.velog.veloguser.service.user;
 
-import com.velog.veloguser.exception.NotMatchException;
-import com.velog.veloguser.exception.AlreadyExistException;
-import com.velog.veloguser.repository.UserRepository;
-import javassist.NotFoundException;
+import com.velog.velogcommon.exception.AlreadyExistException;
+import com.velog.velogcommon.user.repository.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 public class UserServiceUtils {

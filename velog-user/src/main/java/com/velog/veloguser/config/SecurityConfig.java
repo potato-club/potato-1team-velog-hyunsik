@@ -16,7 +16,6 @@ import org.springframework.web.filter.CorsFilter;
 
 @Configuration
 @EnableWebSecurity
-@RequiredArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final CustomUserDetailsService customUserDetailsService;
@@ -25,6 +24,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
     private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
     private final TokenProvider tokenProvider;
+
+    public SecurityConfig(CustomUserDetailsService customUserDetailsService, CorsFilter corsFilter, PasswordEncoder passwordEncoder,
+                          JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint, JwtAccessDeniedHandler jwtAccessDeniedHandler,
+                          TokenProvider tokenProvider) {
+        this.customUserDetailsService = customUserDetailsService;
+        this.corsFilter = corsFilter;
+        this.passwordEncoder = passwordEncoder;
+        this.jwtAuthenticationEntryPoint = jwtAuthenticationEntryPoint;
+        this.jwtAccessDeniedHandler = jwtAccessDeniedHandler;
+        this.tokenProvider = tokenProvider;
+    }
 
     @Override
     public void configure(WebSecurity web) {

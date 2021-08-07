@@ -1,9 +1,9 @@
 package com.velog.veloguser.service.user;
 
-import com.velog.veloguser.web.dto.request.UserCreateRequest;
-import com.velog.veloguser.web.dto.response.BoardResponse;
-import com.velog.veloguser.web.dto.response.UserResponse;
-import com.velog.veloguser.exception.AlreadyExistException;
+import com.velog.velogcommon.board.dto.response.BoardResponse;
+import com.velog.velogcommon.user.dto.request.UserCreateRequest;
+import com.velog.velogcommon.user.dto.response.UserResponse;
+import com.velog.velogcommon.exception.AlreadyExistException;
 import javassist.NotFoundException;
 import org.springframework.validation.BindException;
 

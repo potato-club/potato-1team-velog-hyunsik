@@ -1,9 +1,9 @@
 package com.velog.veloguser.web.controller;
 
+import com.velog.velogcommon.utils.TokenDto;
+import com.velog.velogcommon.utils.validation.ValidationUtils;
 import com.velog.veloguser.service.auth.AuthService;
-import com.velog.veloguser.web.dto.request.LoginRequest;
-import com.velog.veloguser.web.dto.response.TokenResponse;
-import com.velog.veloguser.web.validation.ValidationUtils;
+import com.velog.velogcommon.user.dto.request.LoginRequest;
 import javassist.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -27,11 +27,11 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping("authenticate")
-    public ResponseEntity<TokenResponse> login(@Valid @RequestBody LoginRequest loginRequest, BindingResult bindingResult) throws BindException, NotFoundException, IOException {
+    public ResponseEntity<TokenDto> login(@Valid @RequestBody LoginRequest loginRequest, BindingResult bindingResult) throws BindException, NotFoundException, IOException {
         ValidationUtils.validateBindingResult(bindingResult);
-        TokenResponse tokenResponse = authService.login(loginRequest);
-        HttpHeaders httpHeaders = authService.addHeaders(tokenResponse);
-        return new ResponseEntity<>(tokenResponse, httpHeaders, HttpStatus.OK);
+        TokenDto tokenDto = authService.login(loginRequest);
+        HttpHeaders httpHeaders = authService.addHeaders(tokenDto);
+        return new ResponseEntity<>(tokenDto, httpHeaders, HttpStatus.OK);
     }
 
     @PostMapping("validateToken")

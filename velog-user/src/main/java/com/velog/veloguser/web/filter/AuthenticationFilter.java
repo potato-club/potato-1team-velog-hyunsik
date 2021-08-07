@@ -4,7 +4,7 @@
 //import com.velog.veloguser.security.CustomUserDetailsService;
 //import com.velog.veloguser.security.PrincipalDetails;
 //import com.velog.veloguser.service.user.UserServiceUtils;
-//import com.velog.veloguser.web.dto.request.LoginRequest;
+//import com.velog.velogcommon.user.dto.request.LoginRequest;
 //import io.jsonwebtoken.Jwts;
 //import io.jsonwebtoken.SignatureAlgorithm;
 //import lombok.SneakyThrows;

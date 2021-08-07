@@ -1,7 +1,7 @@
 package com.velog.velogboard.web.exceptionHandler;
 
-import com.velog.velogboard.domain.utils.Result;
-import com.velog.velogboard.validation.ValidationResult;
+import com.velog.velogcommon.utils.Result;
+import com.velog.velogcommon.utils.validation.ValidationResult;
 import javassist.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

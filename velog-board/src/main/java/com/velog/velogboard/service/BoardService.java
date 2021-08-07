@@ -1,9 +1,7 @@
 package com.velog.velogboard.service;
 
-import com.velog.velogboard.domain.entity.Board;
-import com.velog.velogboard.web.dto.request.BoardRequest;
-import com.velog.velogboard.web.dto.response.BoardResponse;
-import javassist.NotFoundException;
+import com.velog.velogcommon.board.dto.request.BoardRequest;
+import com.velog.velogcommon.board.dto.response.BoardResponse;
 
 import java.util.List;
 

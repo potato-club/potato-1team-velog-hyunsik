@@ -1,13 +1,11 @@
 package com.velog.veloguser.service.auth;
 
-import com.velog.veloguser.domain.entity.User;
-import com.velog.veloguser.repository.UserRepository;
-import com.velog.veloguser.security.PrincipalDetails;
+import com.velog.velogcommon.user.entity.User;
+import com.velog.velogcommon.utils.TokenDto;
+import com.velog.velogcommon.user.repository.UserRepository;
 import com.velog.veloguser.security.jwt.JwtFilter;
 import com.velog.veloguser.security.jwt.TokenProvider;
-import com.velog.veloguser.web.dto.request.LoginRequest;
-import com.velog.veloguser.web.dto.response.TokenResponse;
-import com.velog.veloguser.web.dto.response.UserIdResponse;
+import com.velog.velogcommon.user.dto.request.LoginRequest;
 import javassist.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
@@ -25,18 +23,18 @@ public class AuthServiceImpl implements AuthService {
     private final UserRepository userRepository;
 
     @Override
-    public TokenResponse login(LoginRequest loginRequest) throws NotFoundException {
+    public TokenDto login(LoginRequest loginRequest) throws NotFoundException {
 
         User findUser = userRepository.findUserByEmail(loginRequest.getEmail()).orElseThrow(() -> new NotFoundException("해당하는 계정을 찾을 수 없습니다."));
         String jwt = tokenProvider.createToken(findUser.getUserId());
 
-        return TokenResponse.of(jwt);
+        return TokenDto.of(jwt);
     }
 
     @Override
-    public HttpHeaders addHeaders(TokenResponse tokenResponse) {
+    public HttpHeaders addHeaders(TokenDto tokenDto) {
         HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.add(JwtFilter.AUTHORIZATION_HEADER, tokenResponse.getToken());
+        httpHeaders.add(JwtFilter.AUTHORIZATION_HEADER, tokenDto.getToken());
         return httpHeaders;
     }
 

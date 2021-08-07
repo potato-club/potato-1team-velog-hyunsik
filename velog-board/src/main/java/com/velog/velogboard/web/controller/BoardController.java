@@ -1,10 +1,10 @@
 package com.velog.velogboard.web.controller;
 
-import com.velog.velogboard.domain.utils.Result;
 import com.velog.velogboard.service.BoardService;
-import com.velog.velogboard.validation.ValidationUtils;
-import com.velog.velogboard.web.dto.request.BoardRequest;
-import com.velog.velogboard.web.dto.response.BoardResponse;
+import com.velog.velogcommon.utils.validation.ValidationUtils;
+import com.velog.velogcommon.board.dto.request.BoardRequest;
+import com.velog.velogcommon.board.dto.response.BoardResponse;
+import com.velog.velogcommon.utils.Result;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 

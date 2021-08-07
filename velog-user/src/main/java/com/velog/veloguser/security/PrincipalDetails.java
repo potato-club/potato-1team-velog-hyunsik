@@ -1,6 +1,6 @@
 package com.velog.veloguser.security;
 
-import com.velog.veloguser.domain.entity.User;
+import com.velog.velogcommon.user.entity.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 

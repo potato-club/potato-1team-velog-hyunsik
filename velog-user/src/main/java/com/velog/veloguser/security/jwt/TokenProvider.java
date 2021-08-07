@@ -1,12 +1,11 @@
 package com.velog.veloguser.security.jwt;
 
-import com.velog.veloguser.exception.JwtTokenException;
+import com.velog.velogcommon.exception.JwtTokenException;
 import com.velog.veloguser.security.CustomUserDetailsService;
 import com.velog.veloguser.security.PrincipalDetails;
 import io.jsonwebtoken.*;
 import javassist.NotFoundException;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

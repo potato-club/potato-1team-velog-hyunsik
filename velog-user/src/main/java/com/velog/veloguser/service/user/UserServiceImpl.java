@@ -1,13 +1,13 @@
 package com.velog.veloguser.service.user;
 
+import com.velog.velogcommon.board.dto.response.BoardResponse;
 import com.velog.veloguser.security.jwt.TokenProvider;
 import com.velog.veloguser.web.client.BoardServiceClient;
-import com.velog.veloguser.web.dto.request.UserCreateRequest;
-import com.velog.veloguser.web.dto.response.BoardResponse;
-import com.velog.veloguser.web.dto.response.UserResponse;
-import com.velog.veloguser.domain.entity.User;
-import com.velog.veloguser.exception.AlreadyExistException;
-import com.velog.veloguser.repository.UserRepository;
+import com.velog.velogcommon.user.dto.request.UserCreateRequest;
+import com.velog.velogcommon.user.dto.response.UserResponse;
+import com.velog.velogcommon.user.entity.User;
+import com.velog.velogcommon.exception.AlreadyExistException;
+import com.velog.velogcommon.user.repository.UserRepository;
 import javassist.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
