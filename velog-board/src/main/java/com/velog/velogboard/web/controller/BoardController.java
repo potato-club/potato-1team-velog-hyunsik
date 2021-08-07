@@ -5,6 +5,7 @@ import com.velog.velogcommon.utils.validation.ValidationUtils;
 import com.velog.velogcommon.board.dto.request.BoardRequest;
 import com.velog.velogcommon.board.dto.response.BoardResponse;
 import com.velog.velogcommon.utils.Result;
+import javassist.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 

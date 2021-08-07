@@ -15,9 +15,5 @@ public interface UserService {
 
     UserResponse createUser(UserCreateRequest request) throws NotFoundException, AlreadyExistException, BindException;
 
-    String getUserId(String token);
-
-    void validateUserId(String userId) throws NotFoundException;
-
     List<BoardResponse> retrieveBoardList(String token);
 }

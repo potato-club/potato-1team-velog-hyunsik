@@ -1,4 +1,4 @@
-package com.velog.veloguser.service.auth;
+package com.velog.velogauth.service;
 
 import com.velog.velogcommon.user.dto.request.LoginRequest;
 import com.velog.velogcommon.utils.TokenDto;

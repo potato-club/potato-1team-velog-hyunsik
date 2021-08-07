@@ -1,4 +1,4 @@
-package com.velog.veloguser.security;
+package com.velog.velogauth.security;
 
 import com.velog.velogcommon.user.entity.User;
 import org.springframework.security.core.GrantedAuthority;

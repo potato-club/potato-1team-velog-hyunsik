@@ -2,8 +2,7 @@ package com.velog.veloguser.web.client;
 
 import com.velog.velogcommon.board.dto.response.BoardResponse;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 

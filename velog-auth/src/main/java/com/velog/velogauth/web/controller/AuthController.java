@@ -1,9 +1,9 @@
-package com.velog.veloguser.web.controller;
+package com.velog.velogauth.web.controller;
 
+import com.velog.velogauth.service.AuthService;
+import com.velog.velogcommon.user.dto.request.LoginRequest;
 import com.velog.velogcommon.utils.TokenDto;
 import com.velog.velogcommon.utils.validation.ValidationUtils;
-import com.velog.veloguser.service.auth.AuthService;
-import com.velog.velogcommon.user.dto.request.LoginRequest;
 import javassist.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

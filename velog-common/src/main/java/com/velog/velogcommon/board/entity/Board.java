@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
+import static javax.persistence.FetchType.*;
+
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -24,6 +26,7 @@ public class Board extends BaseTimeEntity {
     private String content;
 
     private String userId;
+
 
     @Builder
     public Board(String title, String content, String userId) {

@@ -1,11 +1,12 @@
-package com.velog.veloguser.security.jwt;
+package com.velog.velogauth.security.jwt;
 
+import com.velog.velogauth.security.CustomUserDetailsService;
+import com.velog.velogauth.security.PrincipalDetails;
 import com.velog.velogcommon.exception.JwtTokenException;
-import com.velog.veloguser.security.CustomUserDetailsService;
-import com.velog.veloguser.security.PrincipalDetails;
 import io.jsonwebtoken.*;
 import javassist.NotFoundException;
 import lombok.extern.slf4j.Slf4j;
+import org.bouncycastle.jcajce.BCFKSLoadStoreParameter;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

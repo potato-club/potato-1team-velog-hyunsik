@@ -1,11 +1,11 @@
 package com.velog.velogboard.service;
 
+import com.velog.velogboard.web.client.AuthServiceClient;
 import com.velog.velogcommon.board.entity.Board;
 import com.velog.velogcommon.board.repository.BoardRepository;
-import com.velog.velogboard.web.client.UserServiceClient;
 import com.velog.velogcommon.board.dto.request.BoardRequest;
 import com.velog.velogcommon.board.dto.response.BoardResponse;
-import feign.FeignException;
+import javassist.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -21,18 +21,18 @@ import java.util.stream.Collectors;
 public class BoardServiceImpl implements BoardService {
 
     private final BoardRepository boardRepository;
-    private final UserServiceClient userServiceClient;
+    private final AuthServiceClient authServiceClient;
 
     @Transactional
     @Override
     public BoardResponse createBoard(BoardRequest request, String token) {
-        String userId = userServiceClient.validateToken(token);
+        String userId = authServiceClient.validateToken(token);
         return BoardResponse.of(boardRepository.save(Board.of(request.getTitle(), request.getContent(), userId)));
     }
 
     @Override
-    public List<BoardResponse> retrieveBoardList(String token) {
-        String userId = userServiceClient.validateToken(token);
+    public List<BoardResponse> retrieveBoardList(String token)  {
+        String userId = authServiceClient.validateToken(token);
         return boardRepository.findBoardByUserId(userId).stream().map(BoardResponse::of).collect(Collectors.toList());
     }
 }

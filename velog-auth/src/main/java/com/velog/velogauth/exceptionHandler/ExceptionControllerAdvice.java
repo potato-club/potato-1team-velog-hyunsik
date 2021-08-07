@@ -1,38 +1,23 @@
-package com.velog.veloguser.exceptionHandler;
+package com.velog.velogauth.exceptionHandler;
 
 import com.velog.velogcommon.exception.AlreadyExistException;
-import com.velog.velogcommon.exception.BusinessException;
 import com.velog.velogcommon.exception.JwtTokenException;
 import com.velog.velogcommon.exception.NotMatchException;
 import com.velog.velogcommon.utils.Result;
-import com.velog.velogcommon.utils.validation.ValidationResult;
 import javassist.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.MessageSource;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.validation.BindException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestControllerAdvice;
-import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.bind.annotation.RestController;
 
 
-import static org.springframework.http.HttpStatus.*;
+import static org.springframework.http.HttpStatus.BAD_REQUEST;
 
-@RestControllerAdvice
+@RestController
 @Slf4j
 @RequiredArgsConstructor
 public class ExceptionControllerAdvice {
-
-    private final MessageSource messageSource;
-
-    @ExceptionHandler(BusinessException.class)
-    @ResponseStatus(BAD_REQUEST)
-    protected Result<Object> handleCustomException(BusinessException e) {
-        log.error(e.getMessage(), e);
-        return Result.error(BAD_REQUEST.value(), e.getMessage());
-    }
 
 
     @ExceptionHandler(AlreadyExistException.class)
@@ -56,15 +41,12 @@ public class ExceptionControllerAdvice {
         return Result.error(BAD_REQUEST.value(), e.getMessage());
     }
 
-    @ExceptionHandler(BindException.class)
+
+    @ExceptionHandler(JwtTokenException.class)
     @ResponseStatus(BAD_REQUEST)
-    protected ValidationResult handleBindException(BindException bindException) {
-        return ValidationResult.error(bindException, messageSource);
+    protected Result<Object> handleJwtTokenExceptionException(JwtTokenException e) {
+        log.error(e.getMessage(), e);
+        return Result.error(BAD_REQUEST.value(), e.getMessage());
     }
 
-    @ExceptionHandler(ResponseStatusException.class)
-    protected Result<Object> handleResponseStatusException(ResponseStatusException e) {
-        log.error(e.getMessage(), e);
-        return Result.error(e.getRawStatusCode(), e.getMessage());
-    }
 }

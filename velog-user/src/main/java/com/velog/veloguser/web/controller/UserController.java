@@ -44,6 +44,6 @@ public class UserController {
     //Board 서버에서 해도 되지만 FeignClient 시험용으로 User 서버에서 시도해봄
     @GetMapping("myBoardList")
     public Result<List<BoardResponse>> myBoardList(@RequestHeader(name = "Authorization") String token) {
-        return Result.success(boardServiceClient.myBoardList(token));
+        return Result.success(userService.retrieveBoardList(token));
     }
 }

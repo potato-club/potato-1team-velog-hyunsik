@@ -1,17 +1,16 @@
-package com.velog.veloguser.service.auth;
+package com.velog.velogauth.service;
 
-import com.velog.velogcommon.user.entity.User;
-import com.velog.velogcommon.utils.TokenDto;
-import com.velog.velogcommon.user.repository.UserRepository;
-import com.velog.veloguser.security.jwt.JwtFilter;
-import com.velog.veloguser.security.jwt.TokenProvider;
+import com.velog.velogauth.security.jwt.JwtFilter;
+import com.velog.velogauth.security.jwt.TokenProvider;
 import com.velog.velogcommon.user.dto.request.LoginRequest;
+import com.velog.velogcommon.user.entity.User;
+import com.velog.velogcommon.user.repository.UserRepository;
+import com.velog.velogcommon.utils.TokenDto;
 import javassist.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 
 
 @Service
