@@ -5,13 +5,16 @@ import com.velog.velogcommon.board.repository.BoardRepository;
 import com.velog.velogboard.web.client.UserServiceClient;
 import com.velog.velogcommon.board.dto.request.BoardRequest;
 import com.velog.velogcommon.board.dto.response.BoardResponse;
+import feign.FeignException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor

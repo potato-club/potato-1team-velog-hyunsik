@@ -25,7 +25,7 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final TokenProvider tokenProvider;
-    private final BoardServiceClient apiClient;
+    private final BoardServiceClient boardServiceClient;
 
 
     @Transactional
@@ -54,6 +54,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<BoardResponse> retrieveBoardList(String token) {
-       return apiClient.myBoardList(token);
+       return boardServiceClient.myBoardList(token);
     }
 }

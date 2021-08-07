@@ -1,8 +1,8 @@
 package com.velog.veloguser;
 
+import com.velog.veloguser.web.error.FeignErrorDecoder;
+import feign.Logger;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.actuate.trace.http.HttpTraceRepository;
-import org.springframework.boot.actuate.trace.http.InMemoryHttpTraceRepository;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
@@ -12,6 +12,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+
+
 
 @SpringBootApplication
 @EnableDiscoveryClient
@@ -32,4 +34,13 @@ public class VelogUserApplication {
     }
 
 
+    @Bean
+    public Logger.Level feignLoggerLevel() {
+        return Logger.Level.FULL;
+    }
+
+    @Bean
+    public FeignErrorDecoder getFeignErrorDecoder() {
+        return new FeignErrorDecoder();
+    }
 }

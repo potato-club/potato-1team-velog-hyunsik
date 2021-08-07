@@ -10,6 +10,7 @@ import org.springframework.validation.BindException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 
@@ -31,6 +32,12 @@ public class CustomControllerAdvice {
     protected Result<Object> handleNotFoundException(NotFoundException e) {
         log.error(e.getMessage(), e);
         return Result.error(BAD_REQUEST.value(), e.getMessage());
+    }
+
+    @ExceptionHandler(ResponseStatusException.class)
+    protected Result<Object> handleResponseStatusException(ResponseStatusException e) {
+        log.error(e.getMessage(), e);
+        return Result.error(e.getRawStatusCode(), e.getMessage());
     }
 
 }

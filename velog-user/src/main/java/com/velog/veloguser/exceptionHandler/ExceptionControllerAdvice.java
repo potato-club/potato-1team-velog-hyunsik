@@ -15,6 +15,7 @@ import org.springframework.validation.BindException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.server.ResponseStatusException;
 
 
 import static org.springframework.http.HttpStatus.*;
@@ -72,5 +73,11 @@ public class ExceptionControllerAdvice {
     protected Result<Object> handleJwtTokenExceptionException(JwtTokenException e) {
         log.error(e.getMessage(), e);
         return Result.error(BAD_REQUEST.value(), e.getMessage());
+    }
+
+    @ExceptionHandler(ResponseStatusException.class)
+    protected Result<Object> handleJwtTokenExceptionException(ResponseStatusException e) {
+        log.error(e.getMessage(), e);
+        return Result.error(e.getRawStatusCode(), e.getMessage());
     }
 }
