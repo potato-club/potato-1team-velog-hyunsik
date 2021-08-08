@@ -1,5 +1,5 @@
 # potato-1team-velog-hyunsik
 
 # ERD 
-![Velog erd (4)](https://user-images.githubusercontent.com/63233168/128623504-63d62486-9d03-4eed-bfad-eae4d7fe21cc.png)
+![Velog erd (5)](https://user-images.githubusercontent.com/63233168/128642304-39a871e6-d72c-493f-a9b7-f512fd8b8d1e.png)
 
