@@ -12,9 +12,14 @@ public class UserServiceUtils {
 
     public static void validateExistEmail(UserRepository userRepository, String email) throws AlreadyExistException {
         if (userRepository.findUserByEmail(email).isPresent()) {
-            throw new AlreadyExistException("이미 존재하는 계정입니다");
+            throw new AlreadyExistException("이미 존재하는 계정입니다.");
         }
     }
 
 
+    public static void validateExistNickName(UserRepository userRepository, String nickName) {
+        if (userRepository.findByNickName(nickName).isPresent()) {
+            throw new AlreadyExistException("이미 존재하는 별명입니다.");
+        }
+    }
 }

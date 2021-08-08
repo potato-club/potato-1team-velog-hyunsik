@@ -25,8 +25,8 @@ public class CustomUserDetailsService implements UserDetailsService {
     }
 
 
-    public String findEmailByUserId(String userId) throws NotFoundException {
-        return userRepository.findEmailByUserId(userId).orElseThrow(() -> new NotFoundException("해당 계정을 찾을 수 없습니다."));
+    public String findEmailByUserId(Long id) throws NotFoundException {
+        return userRepository.findEmailById(id).orElseThrow(() -> new NotFoundException("해당 계정을 찾을 수 없습니다."));
     }
 
 }

@@ -5,7 +5,7 @@ import com.velog.velogcommon.utils.Result;
 import com.velog.velogcommon.utils.validation.ValidationUtils;
 import com.velog.veloguser.web.client.BoardServiceClient;
 import com.velog.velogcommon.user.dto.request.UserCreateRequest;
-import com.velog.velogcommon.user.dto.response.UserResponse;
+import com.velog.velogcommon.user.dto.response.UserCreateResponse;
 import com.velog.veloguser.service.user.UserService;
 import javassist.NotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -36,7 +36,7 @@ public class UserController {
     }
 
     @PostMapping("createUser")
-    public Result<UserResponse> createUser(@RequestBody @Valid UserCreateRequest request, BindingResult bindingResult) throws BindException, NotFoundException {
+    public Result<UserCreateResponse> createUser(@RequestBody @Valid UserCreateRequest request, BindingResult bindingResult) throws BindException, NotFoundException {
         ValidationUtils.validateBindingResult(bindingResult);
         return Result.success(userService.createUser(request));
     }

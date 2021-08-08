@@ -30,10 +30,10 @@ public class TokenProvider {
         this.env = env;
     }
 
-    public String createToken(String userId) {
+    public String createToken(Long id) {
 
         return Jwts.builder()
-                .setSubject(userId)
+                .setSubject(id.toString())
                 .setExpiration(new Date(System.currentTimeMillis() + Long.parseLong(Objects.requireNonNull(env.getProperty("token.expiration_time")))))
                 .signWith(SignatureAlgorithm.HS512, env.getProperty("token.secret"))
                 .compact();
@@ -43,7 +43,7 @@ public class TokenProvider {
     public Authentication getAuthentication(String token) throws NotFoundException {
 
         Claims claims = getToken(token);
-        String userId = claims.getSubject();
+        long userId = Long.parseLong(claims.getSubject());
 
         String email = customUserDetailsService.findEmailByUserId(userId);
         PrincipalDetails principal = customUserDetailsService.loadUserByUsername(email);

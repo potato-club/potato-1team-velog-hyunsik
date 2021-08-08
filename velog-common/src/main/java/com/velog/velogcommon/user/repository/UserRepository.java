@@ -15,8 +15,10 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query("select u.encodedPassword from User u where u.email = :email")
     Optional<String> findEncodedPasswordByEmail(@Param("email") String email);
 
-    @Query("select u.email from User u where u.userId = :userId")
-    Optional<String> findEmailByUserId(@Param("userId") String userId);
+    @Query("select u.email from User u where u.id = :id")
+    Optional<String> findEmailById(@Param("id") Long id);
 
-    Optional<User> findUserByUserId(String userId);
+    Optional<User> findUserById(Long id);
+
+    Optional<User> findByNickName(String nickName);
 }

@@ -23,21 +23,32 @@ public class UserCreateRequest {
     @Size(min = 2)
     private String name;
 
+    @NotBlank
+    @Size(min = 6, max = 16)
+    private String nickName;
+
+    @Size(max = 30)
+    private String introduce;
+
 
     //테스트 코드 작성용
     @Builder
-    public UserCreateRequest(String email, String password, String name) {
+    public UserCreateRequest(String email, String password, String name, String nickName, String introduce) {
         this.email = email;
         this.password = password;
         this.name = name;
+        this.nickName = nickName;
+        this.introduce = introduce;
     }
 
     //테스트 코드 작성용
-    public static UserCreateRequest of(String email, String password, String name) {
+    public static UserCreateRequest of(String email, String password, String name, String nickName, String introduce) {
         return new UserCreateRequest().builder()
                 .email(email)
                 .password(password)
                 .name(name)
+                .nickName(nickName)
+                .introduce(introduce)
                 .build();
     }
 }

@@ -25,7 +25,7 @@ public class AuthServiceImpl implements AuthService {
     public TokenDto login(LoginRequest loginRequest) throws NotFoundException {
 
         User findUser = userRepository.findUserByEmail(loginRequest.getEmail()).orElseThrow(() -> new NotFoundException("해당하는 계정을 찾을 수 없습니다."));
-        String jwt = tokenProvider.createToken(findUser.getUserId());
+        String jwt = tokenProvider.createToken(findUser.getId());
 
         return TokenDto.of(jwt);
     }
