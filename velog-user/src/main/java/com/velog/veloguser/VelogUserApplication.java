@@ -3,6 +3,7 @@ package com.velog.veloguser;
 import com.velog.veloguser.web.error.FeignErrorDecoder;
 import feign.Logger;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
