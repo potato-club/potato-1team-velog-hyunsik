@@ -3,6 +3,7 @@ package com.velog.velogauth.security.jwt;
 import com.velog.velogauth.security.CustomUserDetailsService;
 import com.velog.velogauth.security.PrincipalDetails;
 import com.velog.velogcommon.exception.JwtTokenException;
+import com.velog.velogcommon.utils.error.ErrorCode;
 import io.jsonwebtoken.*;
 import javassist.NotFoundException;
 import lombok.extern.slf4j.Slf4j;
@@ -61,16 +62,16 @@ public class TokenProvider {
     }
 
     //토큰에서 값 추출
-    public String validateTokenAndGetUserId(String token) {
+    public Long validateTokenAndGetUserId(String token) {
         if (!validateToken(token)) {
-            throw new JwtTokenException("토큰 오류 입니다.");
+            throw new JwtTokenException(ErrorCode.JWT_TOKEN_EXCEPTION);
         }
         try {
             token = removeBear(token);
             Claims claims = Jwts.parser().setSigningKey(env.getProperty("token.secret")).parseClaimsJws(token).getBody();
-            return claims.getSubject();
+            return Long.parseLong(claims.getSubject());
         } catch (Exception e) {
-            throw new JwtTokenException("토큰 파싱 오류 입니다.");
+            throw new JwtTokenException(ErrorCode.JWT_TOKEN_EXCEPTION_PARSING);
         }
     }
 

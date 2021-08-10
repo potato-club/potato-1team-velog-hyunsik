@@ -1,13 +1,12 @@
 package com.velog.veloguser.web.controller;
 
 import com.velog.velogcommon.board.dto.response.BoardResponse;
+import com.velog.velogcommon.exception.NotFoundException;
 import com.velog.velogcommon.utils.Result;
 import com.velog.velogcommon.utils.validation.ValidationUtils;
-import com.velog.veloguser.web.client.BoardServiceClient;
-import com.velog.velogcommon.user.dto.request.UserCreateRequest;
-import com.velog.velogcommon.user.dto.response.UserCreateResponse;
+import com.velog.velogcommon.user.dto.request.UserRequest;
+import com.velog.velogcommon.user.dto.response.UserResponse;
 import com.velog.veloguser.service.user.UserService;
-import javassist.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.env.Environment;
@@ -22,7 +21,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserController {
 
-    private final BoardServiceClient boardServiceClient;
     private final UserService userService;
     private final Environment env;
 
@@ -35,11 +33,23 @@ public class UserController {
                 + ", with token time = " + env.getProperty("token.expiration_time");
     }
 
+    /** 회원 가입 **/
     @PostMapping("createUser")
-    public Result<UserCreateResponse> createUser(@RequestBody @Valid UserCreateRequest request, BindingResult bindingResult) throws BindException, NotFoundException {
+    public Result<UserResponse.Create> createUser(@RequestBody @Valid UserRequest.Create request, BindingResult bindingResult) throws BindException, NotFoundException {
         ValidationUtils.validateBindingResult(bindingResult);
-        return Result.success(userService.createUser(request));
+        return Result.success(UserResponse.Create.of(userService.createUser(request)));
     }
+
+//    /**
+//     * 회원 이름, 한줄 소개 수정하기
+//     **/
+//    @PostMapping("setting/updateNameAndIntroduce")
+//    public Result<UserResponse.Create> updateNameAndIntroduce(@RequestBody @Valid UserRequest.Create request, BindingResult bindingResult,
+//                                                       @RequestHeader(name = "Authorization") String token) throws BindException, NotFoundException {
+//        ValidationUtils.validateBindingResult(bindingResult);
+//        return Result.success(UserResponse.Create.of(userService.updateNameAndIntroduce(request, token)));)
+//    }
+
 
     //Board 서버에서 해도 되지만 FeignClient 시험용으로 User 서버에서 시도해봄
     @GetMapping("myBoardList")

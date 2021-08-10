@@ -1,6 +1,6 @@
 package com.velog.veloguser.web.controller;
 
-import com.velog.velogcommon.user.dto.request.UserCreateRequest;
+import com.velog.velogcommon.user.dto.request.UserRequest;
 import com.velog.velogcommon.utils.validation.FieldErrorDetail;
 import com.velog.velogcommon.utils.validation.ValidationResult;
 import com.velog.veloguser.config.SpringCloudConfig;
@@ -15,12 +15,12 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.reactive.server.WebTestClient;
+
 import java.time.Duration;
 import java.util.stream.Collectors;
 import static org.assertj.core.api.Assertions.*;
 
 
-@ExtendWith(SpringExtension.class)
 @WebFluxTest(controllers = UserController.class)
 @ContextConfiguration(classes = { SpringCloudConfig.class})
 class UserControllerTest {
@@ -44,7 +44,7 @@ class UserControllerTest {
     public void 회원_가입_에러() throws Exception {
 
         //given
-        UserCreateRequest request = UserCreateRequest.of
+        UserRequest.Create request = UserRequest.Create.of
                 ("", "", "", "", "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
         //then
         webClient.post()
@@ -61,7 +61,11 @@ class UserControllerTest {
                                 "한줄소개는 최대 30글자까지 입니다."
                         ))
                 .consumeWith(result -> assertThat(result.getResponseBody().getErrors().stream().map(FieldErrorDetail::getCode).collect(Collectors.toList()))
-                        .contains("Size", "NotBlank"));
+                        .contains("Size", "NotBlank"))
+                .consumeWith(result -> assertThat(result.getResponseBody().getErrors().stream().map(FieldErrorDetail::getObjectName).collect(Collectors.toList()))
+                        .containsOnly("userCreateRequest"))
+                .consumeWith(result -> assertThat(result.getResponseBody().getErrors().stream().map(FieldErrorDetail::getField).collect(Collectors.toList()))
+                        .contains("email", "password", "name", "nickName", "introduce"));
     }
 
 

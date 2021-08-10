@@ -1,10 +1,10 @@
 package com.velog.velogauth.web.controller;
 
 import com.velog.velogauth.service.AuthService;
+import com.velog.velogcommon.exception.NotFoundException;
 import com.velog.velogcommon.user.dto.request.LoginRequest;
 import com.velog.velogcommon.utils.TokenDto;
 import com.velog.velogcommon.utils.validation.ValidationUtils;
-import javassist.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
@@ -35,7 +35,7 @@ public class AuthController {
     }
 
     @PostMapping("validateToken")
-    public ResponseEntity<String> validateToken(@RequestBody String token) {
+    public ResponseEntity<Long> validateToken(@RequestBody String token) {
         return ResponseEntity.ok(authService.validateToken(token));
     }
 

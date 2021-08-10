@@ -1,6 +1,7 @@
 package com.velog.velogauth.security.jwt;
 
 import com.velog.velogcommon.exception.JwtTokenException;
+import com.velog.velogcommon.utils.error.ErrorCode;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
@@ -43,7 +44,7 @@ public class JwtFilter extends GenericFilterBean {
 
         if (!(StringUtils.hasText(jwt) && tokenProvider.validateToken(jwt))) {
             log.info("유효한 JWT 토큰이 없습니다, uri: {}", requestURI);
-            throw new JwtTokenException("유효한 JWT 토큰이 없습니다.");
+            throw new JwtTokenException(ErrorCode.JWT_TOKEN_EXCEPTION_INVALID);
         }
 
 

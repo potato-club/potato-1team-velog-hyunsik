@@ -1,8 +1,11 @@
 package com.velog.velogcommon.exception;
 
+import com.velog.velogcommon.utils.error.ErrorCode;
+
 public class AlreadyExistException extends BusinessException {
 
-    public AlreadyExistException(String message) {
-        super(message);
+
+    public AlreadyExistException(ErrorCode errorCode) {
+        super(errorCode);
     }
 }

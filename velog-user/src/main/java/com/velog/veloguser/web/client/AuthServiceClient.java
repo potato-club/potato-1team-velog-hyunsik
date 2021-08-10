@@ -8,6 +8,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 public interface AuthServiceClient {
 
     @PostMapping("validateToken")
-    String validateToken(@RequestBody String token);
+    Long validateToken(@RequestBody String token);
 
 }

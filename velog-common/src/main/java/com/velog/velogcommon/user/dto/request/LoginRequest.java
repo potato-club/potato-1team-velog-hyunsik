@@ -11,12 +11,15 @@ import javax.validation.constraints.*;
 public class LoginRequest {
 
     @NotBlank
-    @Size(min = 2)
-    @Email
+    @Size(min = 5)
     private String email;
 
     @NotBlank
     @Size(min = 8, max = 20)
     private String password;
 
+    public LoginRequest(String email, String password) {
+        this.email = email;
+        this.password = password;
+    }
 }

@@ -1,10 +1,12 @@
 package com.velog.veloguser.service.user;
 
 import com.velog.velogcommon.board.dto.response.BoardResponse;
+import com.velog.velogcommon.exception.NotFoundException;
+import com.velog.velogcommon.user.entity.UserInfo;
+import com.velog.velogcommon.utils.error.ErrorCode;
 import com.velog.veloguser.web.client.AuthServiceClient;
 import com.velog.veloguser.web.client.BoardServiceClient;
-import com.velog.velogcommon.user.dto.request.UserCreateRequest;
-import com.velog.velogcommon.user.dto.response.UserCreateResponse;
+import com.velog.velogcommon.user.dto.request.UserRequest;
 import com.velog.velogcommon.user.entity.User;
 import com.velog.velogcommon.exception.AlreadyExistException;
 import com.velog.velogcommon.user.repository.UserRepository;
@@ -28,15 +30,17 @@ public class UserServiceImpl implements UserService {
 
     @Transactional
     @Override
-    public UserCreateResponse createUser(UserCreateRequest request) throws AlreadyExistException {
+    public User createUser(UserRequest.Create request) throws AlreadyExistException {
         UserServiceUtils.validateExistEmail(userRepository, request.getEmail());
         UserServiceUtils.validateExistNickName(userRepository, request.getNickName());
 
         String encodedPassword = UserServiceUtils.encodePassword(passwordEncoder, request.getPassword());
         User user = User.createUser(request.getEmail(), request.getName(), encodedPassword, request.getNickName(), request.getIntroduce());
+        UserInfo userInfo = UserInfo.createUserInfo(user.getNickName() + ".log", false, false);
+        user.addUserInfo(userInfo);
 
-        User savedUser = userRepository.save(user);
-        return UserCreateResponse.of(savedUser.getEmail(), savedUser.getName(), savedUser.getNickName(), savedUser.getIntroduce());
+        return userRepository.save(user);
+
     }
 
 
@@ -45,4 +49,10 @@ public class UserServiceImpl implements UserService {
         authServiceClient.validateToken(token);
         return boardServiceClient.myBoardList(token);
     }
+
+//    @Override
+//    public User updateNameAndIntroduce(UserRequest.Create request, String token) throws NotFoundException {
+//        Long id = authServiceClient.validateToken(token);
+//        User findUser = userRepository.findUserById(id).orElseThrow(() -> new NotFoundException(ErrorCode.NOT_FOUND_EXCEPTION_USER));
+//    }
 }

@@ -2,9 +2,9 @@ package com.velog.velogauth.exceptionHandler;
 
 import com.velog.velogcommon.exception.AlreadyExistException;
 import com.velog.velogcommon.exception.JwtTokenException;
+import com.velog.velogcommon.exception.NotFoundException;
 import com.velog.velogcommon.exception.NotMatchException;
 import com.velog.velogcommon.utils.Result;
-import javassist.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -24,21 +24,21 @@ public class ExceptionControllerAdvice {
     @ResponseStatus(BAD_REQUEST)
     protected Result<Object> handleAlreadyExistException(AlreadyExistException e) {
         log.error(e.getMessage(), e);
-        return Result.error(BAD_REQUEST.value(), e.getMessage());
+        return Result.error(e.getCode(), e.getMessage());
     }
 
     @ExceptionHandler(NotFoundException.class)
     @ResponseStatus(BAD_REQUEST)
     protected Result<Object> handleNotFoundException(NotFoundException e) {
         log.error(e.getMessage(), e);
-        return Result.error(BAD_REQUEST.value(), e.getMessage());
+        return Result.error(e.getCode(), e.getMessage());
     }
 
     @ExceptionHandler(NotMatchException.class)
     @ResponseStatus(BAD_REQUEST)
     protected Result<Object> handleNotMatchException(NotMatchException e) {
         log.error(e.getMessage(), e);
-        return Result.error(BAD_REQUEST.value(), e.getMessage());
+        return Result.error(e.getCode(), e.getMessage());
     }
 
 
@@ -46,7 +46,8 @@ public class ExceptionControllerAdvice {
     @ResponseStatus(BAD_REQUEST)
     protected Result<Object> handleJwtTokenExceptionException(JwtTokenException e) {
         log.error(e.getMessage(), e);
-        return Result.error(BAD_REQUEST.value(), e.getMessage());
+        return Result.error(e.getCode(), e.getMessage());
     }
+
 
 }

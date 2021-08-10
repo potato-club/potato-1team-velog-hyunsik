@@ -59,6 +59,14 @@ public class UserInfo {
         userImage.addUserInfo(this);
     }
 
+    public static UserInfo createUserInfo(String velogName, boolean isCommentAlert, boolean isUpdateAlert) {
+        return new UserInfo().builder()
+                .velogName(velogName)
+                .isCommentAlert(isCommentAlert)
+                .isUpdateAlert(isUpdateAlert)
+                .build();
+    }
+
 
     // 생성자 메소드
     public static UserInfo of(UserInfo userInfo, UserSocialInfo userSocialInfo, UserImage userImage) {

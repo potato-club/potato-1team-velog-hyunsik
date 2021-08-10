@@ -1,8 +1,8 @@
 package com.velog.velogboard.web.exceptionHandler;
 
+import com.velog.velogcommon.exception.NotFoundException;
 import com.velog.velogcommon.utils.Result;
 import com.velog.velogcommon.utils.validation.ValidationResult;
-import javassist.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.MessageSource;
@@ -31,7 +31,7 @@ public class CustomControllerAdvice {
     @ResponseStatus(BAD_REQUEST)
     protected Result<Object> handleNotFoundException(NotFoundException e) {
         log.error(e.getMessage(), e);
-        return Result.error(BAD_REQUEST.value(), e.getMessage());
+        return Result.error(e.getCode(), e.getMessage());
     }
 
     @ExceptionHandler(ResponseStatusException.class)
