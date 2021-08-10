@@ -56,18 +56,29 @@ class UserControllerTest {
                 .consumeWith(result -> assertThat(result.getResponseBody().getErrors().stream().map(FieldErrorDetail::getMessage).collect(Collectors.toList()))
                         .contains("이메일은 최소 2글자 이상이어야 합니다.", "이메일을 입력해주세요.",
                                 "비밀번호를 입력해주세요.", "비밀번호는 최소 8글자 최대 20글자 이하여야 합니다.",
-                                "이름을 입력해주세요.", "이름은 최소 2글자 이상이어야 합니다.",
+                                "이름을 입력해주세요.", "이름은 최소 2글자 최대 20글자 이하여야 합니다.",
                                 "별명을 입력해주세요.", "별명은 최소 6글자 최대 16글자 이하여야 합니다.",
                                 "한줄소개는 최대 30글자까지 입니다."
                         ))
                 .consumeWith(result -> assertThat(result.getResponseBody().getErrors().stream().map(FieldErrorDetail::getCode).collect(Collectors.toList()))
                         .contains("Size", "NotBlank"))
                 .consumeWith(result -> assertThat(result.getResponseBody().getErrors().stream().map(FieldErrorDetail::getObjectName).collect(Collectors.toList()))
-                        .containsOnly("userCreateRequest"))
+                        .containsOnly("create"))
                 .consumeWith(result -> assertThat(result.getResponseBody().getErrors().stream().map(FieldErrorDetail::getField).collect(Collectors.toList()))
                         .contains("email", "password", "name", "nickName", "introduce"));
     }
 
+//    @Test
+//    @DisplayName("이름이랑 한줄소개 변경 시 @Valid 모든 예외 처리가 들어간 에러 발생!!!")
+//    public void 이름_한줄소개_변경_에러() throws Exception {
+//        //given
+//        UserRequest.UpdateNameAndIntroduce("","")
+//        //when
+//
+//        //then
+//
+//    }
+//
 
 
 

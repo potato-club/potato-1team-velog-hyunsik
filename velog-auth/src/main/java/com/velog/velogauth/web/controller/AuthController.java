@@ -27,7 +27,7 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping("authenticate")
-    public ResponseEntity<TokenDto> login(@Valid @RequestBody LoginRequest loginRequest, BindingResult bindingResult) throws BindException, NotFoundException, IOException {
+    public ResponseEntity<TokenDto> login(@RequestBody @Valid LoginRequest loginRequest, BindingResult bindingResult) throws BindException, NotFoundException, IOException {
         ValidationUtils.validateBindingResult(bindingResult);
         TokenDto tokenDto = authService.login(loginRequest);
         HttpHeaders httpHeaders = authService.addHeaders(tokenDto);

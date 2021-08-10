@@ -21,7 +21,6 @@ import java.util.stream.Collectors;
 import static org.assertj.core.api.Assertions.*;
 
 
-@ExtendWith(SpringExtension.class)
 @WebFluxTest(controllers = AuthController.class)
 class AuthControllerTest {
 

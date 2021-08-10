@@ -42,6 +42,7 @@ public class User extends BaseTimeEntity {
     @OneToMany(mappedBy = "user", cascade = ALL)
     private final List<Board> boardList = new ArrayList<>();
 
+    //생성자 메소드
     @Builder
     public User(String email, String name, String encodedPassword, String nickName, String introduce) {
         this.email = email;
@@ -50,6 +51,7 @@ public class User extends BaseTimeEntity {
         this.nickName = nickName;
         this.introduce = introduce;
     }
+
 
     // 연관 관계 메소드
     public void addUserInfo(UserInfo userInfo) {
@@ -72,8 +74,15 @@ public class User extends BaseTimeEntity {
                 .build();
     }
 
+    // 스태틱 (생성자) 메소드
     public static User of(User user, UserInfo userInfo) {
         user.addUserInfo(userInfo);
+        return user;
+    }
+
+    public static User updateNameAndIntroduce(User user, String name, String introduce) {
+        user.name = name;
+        user.introduce = introduce;
         return user;
     }
 

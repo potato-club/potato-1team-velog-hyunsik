@@ -50,9 +50,11 @@ public class UserServiceImpl implements UserService {
         return boardServiceClient.myBoardList(token);
     }
 
-//    @Override
-//    public User updateNameAndIntroduce(UserRequest.Create request, String token) throws NotFoundException {
-//        Long id = authServiceClient.validateToken(token);
-//        User findUser = userRepository.findUserById(id).orElseThrow(() -> new NotFoundException(ErrorCode.NOT_FOUND_EXCEPTION_USER));
-//    }
+    @Transactional
+    @Override
+    public User updateNameAndIntroduce(UserRequest.UpdateNameAndIntroduce request, String token) throws NotFoundException {
+        Long userId = authServiceClient.validateToken(token);
+        User findUser = userRepository.findById(userId).orElseThrow(() -> new NotFoundException(ErrorCode.NOT_FOUND_EXCEPTION_USER));
+        return UserServiceUtils.updateNameAndIntroduce(userRepository, findUser, request.getName(), request.getIntroduce());
+    }
 }

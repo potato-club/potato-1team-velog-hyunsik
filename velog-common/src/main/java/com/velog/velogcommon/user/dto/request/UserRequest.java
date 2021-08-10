@@ -22,7 +22,7 @@ public class UserRequest {
         private String password;
 
         @NotBlank
-        @Size(min = 2)
+        @Size(min = 2, max = 20)
         private String name;
 
         @NotBlank
@@ -44,6 +44,29 @@ public class UserRequest {
         public static Create of(String email, String password, String name, String nickName, String introduce) {
             return new Create().builder().email(email).password(password).name(name).nickName(nickName).introduce(introduce).build();
         }
+    }
+
+
+    @Getter
+    @NoArgsConstructor(access = AccessLevel.PROTECTED)
+    public static class UpdateNameAndIntroduce{
+        @NotBlank
+        @Size(min = 2, max = 20)
+        private String name;
+
+        @Size(max = 30)
+        private String introduce;
+
+        @Builder
+        public UpdateNameAndIntroduce(String name, String introduce) {
+            this.name = name;
+            this.introduce = introduce;
+        }
+
+        public static UpdateNameAndIntroduce of(String name, String introduce) {
+            return new UpdateNameAndIntroduce().builder().name(name).introduce(introduce).build();
+        }
+
     }
 
 }

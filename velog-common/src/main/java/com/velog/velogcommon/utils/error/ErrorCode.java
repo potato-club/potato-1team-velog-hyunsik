@@ -16,7 +16,7 @@ public enum ErrorCode {
 
     JWT_TOKEN_EXCEPTION(400, "토큰 오류 입니다."),
     JWT_TOKEN_EXCEPTION_PARSING(400, "토큰 파싱 오류 입니다."),
-    JWT_TOKEN_EXCEPTION_INVALID(400,"유요한 토큰이 없습니다.");
+    JWT_TOKEN_EXCEPTION_INVALID(400,"유효한 토큰이 없습니다.");
 
 
     private int code;

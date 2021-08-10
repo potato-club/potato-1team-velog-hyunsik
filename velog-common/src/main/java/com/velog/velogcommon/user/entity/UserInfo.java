@@ -37,12 +37,14 @@ public class UserInfo {
     private UserImage userImage;
 
 
+    // 생성자 메소드
     @Builder
     public UserInfo(String velogName, boolean isCommentAlert, boolean isUpdateAlert) {
         this.velogName = velogName;
         this.isCommentAlert = isCommentAlert;
         this.isUpdateAlert = isUpdateAlert;
     }
+
 
     //연관 관계 메소드
     public void addUser(User user) {
@@ -68,10 +70,11 @@ public class UserInfo {
     }
 
 
-    // 생성자 메소드
+    // 스태틱 (생성자) 메소드
     public static UserInfo of(UserInfo userInfo, UserSocialInfo userSocialInfo, UserImage userImage) {
         userInfo.addUserSocialInfo(userSocialInfo);
         userInfo.addUserImage(userImage);
         return userInfo;
     }
+
 }
