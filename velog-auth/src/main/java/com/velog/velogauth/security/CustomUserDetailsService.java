@@ -21,7 +21,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     @SneakyThrows
     @Override
     public PrincipalDetails loadUserByUsername(final String email) throws UsernameNotFoundException {
-        User findUser = userRepository.findUserByEmail(email).orElseThrow(() -> new NotFoundException(ErrorCode.NOT_FOUND_EXCEPTION_USER));
+        User findUser = userRepository.findByEmail(email).orElseThrow(() -> new NotFoundException(ErrorCode.NOT_FOUND_EXCEPTION_USER));
         return new PrincipalDetails(findUser);
     }
 

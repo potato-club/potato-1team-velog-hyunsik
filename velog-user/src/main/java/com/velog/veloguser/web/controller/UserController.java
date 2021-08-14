@@ -2,11 +2,13 @@ package com.velog.veloguser.web.controller;
 
 import com.velog.velogcommon.board.dto.response.BoardResponse;
 import com.velog.velogcommon.exception.NotFoundException;
-import com.velog.velogcommon.utils.Result;
+import com.velog.velogcommon.user.dto.request.LoginRequest;
+import com.velog.velogcommon.utils.TokenDto;
 import com.velog.velogcommon.utils.validation.ValidationUtils;
 import com.velog.velogcommon.user.dto.request.UserRequest;
 import com.velog.velogcommon.user.dto.response.UserResponse;
 import com.velog.veloguser.service.user.UserService;
+import com.velog.veloguser.web.client.AuthServiceClient;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.env.Environment;
@@ -24,7 +26,7 @@ public class UserController {
 
     private final UserService userService;
     private final Environment env;
-
+    private final AuthServiceClient authServiceClient;
 
     @GetMapping("wasCheck")
     public String status() {
@@ -48,7 +50,8 @@ public class UserController {
     public ResponseEntity<UserResponse.Create> updateNameAndIntroduce(@RequestBody @Valid UserRequest.UpdateNameAndIntroduce request, BindingResult bindingResult,
                                                        @RequestHeader(name = "Authorization") String token) throws BindException, NotFoundException {
         ValidationUtils.validateBindingResult(bindingResult);
-        return ResponseEntity.ok(UserResponse.Create.of(userService.updateNameAndIntroduce(request, token)));
+        Long userId = authServiceClient.validateToken(token);
+        return ResponseEntity.ok(UserResponse.Create.of(userService.updateNameAndIntroduce(request, userId)));
     }
 
     //Board 서버에서 해도 되지만 FeignClient 시험용으로 User 서버에서 시도해봄
@@ -56,4 +59,7 @@ public class UserController {
     public ResponseEntity<List<BoardResponse>> myBoardList(@RequestHeader(name = "Authorization") String token) {
         return ResponseEntity.ok(userService.retrieveBoardList(token));
     }
+
+
+
 }

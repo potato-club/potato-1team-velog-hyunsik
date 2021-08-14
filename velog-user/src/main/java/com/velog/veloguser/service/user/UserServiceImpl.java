@@ -52,8 +52,7 @@ public class UserServiceImpl implements UserService {
 
     @Transactional
     @Override
-    public User updateNameAndIntroduce(UserRequest.UpdateNameAndIntroduce request, String token) throws NotFoundException {
-        Long userId = authServiceClient.validateToken(token);
+    public User updateNameAndIntroduce(UserRequest.UpdateNameAndIntroduce request, Long userId) throws NotFoundException {
         User findUser = userRepository.findById(userId).orElseThrow(() -> new NotFoundException(ErrorCode.NOT_FOUND_EXCEPTION_USER));
         return UserServiceUtils.updateNameAndIntroduce(userRepository, findUser, request.getName(), request.getIntroduce());
     }

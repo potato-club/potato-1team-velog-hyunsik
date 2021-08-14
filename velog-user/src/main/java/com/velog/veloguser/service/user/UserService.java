@@ -17,5 +17,5 @@ public interface UserService {
 
     List<BoardResponse> retrieveBoardList(String token);
 
-    User updateNameAndIntroduce(UserRequest.UpdateNameAndIntroduce request, String token) throws NotFoundException;
+    User updateNameAndIntroduce(UserRequest.UpdateNameAndIntroduce request, Long userId) throws NotFoundException;
 }

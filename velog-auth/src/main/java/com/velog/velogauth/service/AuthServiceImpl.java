@@ -25,7 +25,7 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public TokenDto login(LoginRequest loginRequest) throws NotFoundException {
 
-        User findUser = userRepository.findUserByEmail(loginRequest.getEmail()).orElseThrow(() -> new NotFoundException(ErrorCode.NOT_FOUND_EXCEPTION_USER));
+        User findUser = userRepository.findByEmail(loginRequest.getEmail()).orElseThrow(() -> new NotFoundException(ErrorCode.NOT_FOUND_EXCEPTION_USER));
         String jwt = tokenProvider.createToken(findUser.getId());
 
         return TokenDto.of(jwt);

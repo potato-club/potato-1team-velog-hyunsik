@@ -1,0 +1,7 @@
+spring:
+  cloud:
+    config:
+      uri: http://localhost:8888
+      name: potato-velog-auth-test
+#  profiles:
+#    active: dev

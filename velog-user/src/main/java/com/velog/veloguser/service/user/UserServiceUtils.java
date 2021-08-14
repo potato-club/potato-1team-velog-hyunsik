@@ -5,7 +5,6 @@ import com.velog.velogcommon.user.entity.User;
 import com.velog.velogcommon.user.repository.UserRepository;
 import com.velog.velogcommon.utils.error.ErrorCode;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.util.StringUtils;
 
 public class UserServiceUtils {
 
@@ -14,7 +13,7 @@ public class UserServiceUtils {
     }
 
     public static void validateExistEmail(UserRepository userRepository, String email) throws AlreadyExistException {
-        if (userRepository.findUserByEmail(email).isPresent()) {
+        if (userRepository.findByEmail(email).isPresent()) {
             throw new AlreadyExistException(ErrorCode.ALREADY_EXIST_EXCEPTION_USER);
         }
     }

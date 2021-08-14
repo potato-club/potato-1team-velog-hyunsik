@@ -1,10 +1,13 @@
 package com.velog.veloguser.service;
 
 import com.velog.velogcommon.exception.AlreadyExistException;
+import com.velog.velogcommon.user.dto.request.LoginRequest;
 import com.velog.velogcommon.user.dto.request.UserRequest;
 import com.velog.velogcommon.user.entity.User;
 import com.velog.velogcommon.user.repository.UserRepository;
+import com.velog.velogcommon.utils.TokenDto;
 import com.velog.veloguser.service.user.UserService;
+import com.velog.veloguser.web.client.AuthServiceClient;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -12,6 +15,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.BindException;
 
 import javax.persistence.EntityManager;
 
@@ -24,14 +28,17 @@ class UserServiceTest {
     @Autowired
     UserService userService;
     @Autowired
+    AuthServiceClient authServiceClient;
+    @Autowired
     UserRepository userRepository;
     @Autowired
     EntityManager em;
 
     @BeforeEach
-    public void init() {
-        User user = User.createUser("bbb@naver.com", "12345678", "윤현식", "nickName1", "안녕하세요");
-        userRepository.save(user);
+    public void init() throws BindException {
+        UserRequest.Create request = UserRequest.Create.of
+                ("bbb@naver.com", "12345678", "홍길동", "nickName", "안녕하세요");
+        userService.createUser(request);
     }
 
     @AfterEach
@@ -75,13 +82,26 @@ class UserServiceTest {
     public void 회원가입_별명중복() throws Exception {
         //given
         UserRequest.Create request = UserRequest.Create.of
-                ("aaaa@naver.com", "12345678", "윤현식", "nickName1", "안녕하세요");
+                ("aaaa@naver.com", "12345678", "윤현식", "nickName", "안녕하세요");
         //then
         assertThatThrownBy(() -> userService.createUser(request))
                 .isInstanceOf(AlreadyExistException.class)
                 .hasMessageContaining("이미 존재하는 별명입니다.");
     }
 
+    @Test
+    @DisplayName("이름, 한줄소개 수정 시 성공")
+    public void 이름_한줄소개_수정_성공() throws Exception {
+        //given
+        UserRequest.UpdateNameAndIntroduce request = UserRequest.UpdateNameAndIntroduce.of("홍길동2", "안반가워요");
+        Long userId = 1L;
+        //when
+        User changedUser = userService.updateNameAndIntroduce(request, userId);
+        //then
+        assertThat(changedUser.getName()).isEqualTo("홍길동2");
+        assertThat(changedUser.getIntroduce()).isEqualTo("안반가워요");
+
+    }
 
 
 
