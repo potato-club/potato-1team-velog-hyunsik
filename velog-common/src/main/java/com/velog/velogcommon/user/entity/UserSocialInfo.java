@@ -1,5 +1,6 @@
 package com.velog.velogcommon.user.entity;
 
+import com.velog.velogcommon.user.dto.request.SocialInfoRequest;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -41,11 +42,19 @@ public class UserSocialInfo {
         this.homePage = homePage;
     }
 
+
     // 연관 관계 메소드
     public void addUserInfo(UserInfo userInfo) {
         this.userInfo= userInfo;
     }
 
+    public void update(SocialInfoRequest request) {
+        this.email = request.getEmail();
+        this.github = request.getGithub();
+        this.twitter = request.getTwitter();
+        this.facebook = request.getFacebook();
+        this.homePage = request.getHomePage();
+    }
     //생성자 메소드
     public static UserSocialInfo of(String email, String github, String twitter, String facebook, String homePage) {
        return new UserSocialInfo().builder()
@@ -56,4 +65,6 @@ public class UserSocialInfo {
                .homePage(homePage)
                .build();
     }
+
+
 }

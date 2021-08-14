@@ -1,7 +1,10 @@
 package com.velog.veloguser.service.user;
 
 import com.velog.velogcommon.exception.AlreadyExistException;
+import com.velog.velogcommon.user.dto.request.SocialInfoRequest;
 import com.velog.velogcommon.user.entity.User;
+import com.velog.velogcommon.user.entity.UserInfo;
+import com.velog.velogcommon.user.entity.UserSocialInfo;
 import com.velog.velogcommon.user.repository.UserRepository;
 import com.velog.velogcommon.utils.error.ErrorCode;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -29,5 +32,12 @@ public class UserServiceUtils {
         User changedUser = User.updateNameAndIntroduce(findUser, name, introduce);
         User savedUser = userRepository.save(changedUser);
         return savedUser;
+    }
+
+
+    public static UserSocialInfo updateSocialInfo(UserRepository userRepository, UserSocialInfo userSocialInfo, SocialInfoRequest request) {
+        userSocialInfo.update(request);
+        return userRepository.save(userSocialInfo.getUserInfo().getUser()).getUserInfo().getUserSocialInfo();
+
     }
 }

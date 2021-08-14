@@ -2,8 +2,10 @@ package com.velog.veloguser.service;
 
 import com.velog.velogcommon.exception.AlreadyExistException;
 import com.velog.velogcommon.user.dto.request.LoginRequest;
+import com.velog.velogcommon.user.dto.request.SocialInfoRequest;
 import com.velog.velogcommon.user.dto.request.UserRequest;
 import com.velog.velogcommon.user.entity.User;
+import com.velog.velogcommon.user.entity.UserSocialInfo;
 import com.velog.velogcommon.user.repository.UserRepository;
 import com.velog.velogcommon.utils.TokenDto;
 import com.velog.veloguser.service.user.UserService;
@@ -103,6 +105,24 @@ class UserServiceTest {
 
     }
 
+
+    @Test
+    @DisplayName("소셜 정보 수정 시 성공")
+    public void 소셜_정보_등록_수정() throws Exception {
+        //given
+        SocialInfoRequest request = new SocialInfoRequest("bbb@gmail.com", "hyun6ik2", "hyun6ikTwitter", "", "https://github.com/hyun6ik");
+        Long userId = 1L;
+        //when
+        UserSocialInfo socialInfo = userService.updateSocialInfo(request, userId);
+        //then
+        assertThat(socialInfo.getEmail()).isEqualTo("bbb@gmail.com");
+        assertThat(socialInfo.getGithub()).isEqualTo("hyun6ik2");
+        assertThat(socialInfo.getTwitter()).isEqualTo("hyun6ikTwitter");
+        assertThat(socialInfo.getFacebook()).isBlank();
+        assertThat(socialInfo.getHomePage()).isEqualTo("https://github.com/hyun6ik");
+        assertThat(socialInfo.getUserInfo().getUser().getId()).isEqualTo(1L);
+        assertThat(socialInfo.getUserInfo().getId()).isEqualTo(1L);
+    }
 
 
 }

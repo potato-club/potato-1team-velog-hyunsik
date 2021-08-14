@@ -4,19 +4,16 @@ import com.velog.velogcommon.user.dto.request.UserRequest;
 import com.velog.velogcommon.utils.validation.FieldErrorDetail;
 import com.velog.velogcommon.utils.validation.ValidationCode;
 import com.velog.velogcommon.utils.validation.ValidationResult;
-import com.velog.veloguser.config.MessageConfig;
 import com.velog.veloguser.config.SpringCloudConfig;
 import com.velog.veloguser.service.user.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.autoconfigure.web.reactive.WebFluxTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import java.time.Duration;
 import java.util.stream.Collectors;
@@ -27,8 +24,6 @@ import static org.assertj.core.api.Assertions.*;
 @WebFluxTest(controllers = UserController.class)
 class UserControllerTest {
 
-//    @Autowired
-//    ValidationCode validationCode;
 
     @MockBean
     UserService userService;
@@ -86,7 +81,7 @@ class UserControllerTest {
         UserRequest.UpdateNameAndIntroduce request = new UserRequest.UpdateNameAndIntroduce("", "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
         String token = "tokentokentokentokentokentokentoken";
         //then
-        webClient.post().uri("/setting/updateNameAndIntroduce")
+        webClient.put().uri("/setting/updateNameAndIntroduce")
                 .header("Authorization", token)
                 .bodyValue(request)
                 .exchange()

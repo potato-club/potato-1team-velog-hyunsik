@@ -1,6 +1,7 @@
 package com.velog.velogcommon.user.repository;
 
 import com.velog.velogcommon.user.entity.User;
+import com.velog.velogcommon.user.entity.UserInfo;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -21,4 +22,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
     Optional<User> findById(Long id);
 
     Optional<User> findByNickName(String nickName);
+
+    Optional<UserInfo> findUserInfoById(Long userId);
 }

@@ -2,8 +2,9 @@ package com.velog.veloguser.web.controller;
 
 import com.velog.velogcommon.board.dto.response.BoardResponse;
 import com.velog.velogcommon.exception.NotFoundException;
-import com.velog.velogcommon.user.dto.request.LoginRequest;
-import com.velog.velogcommon.utils.TokenDto;
+import com.velog.velogcommon.user.dto.request.SocialInfoRequest;
+import com.velog.velogcommon.user.dto.response.SocialInfoResponse;
+import com.velog.velogcommon.user.entity.UserSocialInfo;
 import com.velog.velogcommon.utils.validation.ValidationUtils;
 import com.velog.velogcommon.user.dto.request.UserRequest;
 import com.velog.velogcommon.user.dto.response.UserResponse;
@@ -38,21 +39,33 @@ public class UserController {
 
     /** 회원 가입 **/
     @PostMapping("createUser")
-    public ResponseEntity<UserResponse.Create> createUser(@RequestBody @Valid UserRequest.Create request, BindingResult bindingResult) throws BindException, NotFoundException {
+    public ResponseEntity<UserResponse> createUser(@RequestBody @Valid UserRequest.Create request, BindingResult bindingResult) throws BindException, NotFoundException {
         ValidationUtils.validateBindingResult(bindingResult);
-        return ResponseEntity.ok(UserResponse.Create.of(userService.createUser(request)));
+        return ResponseEntity.ok(UserResponse.of(userService.createUser(request)));
     }
 
     /**
      * 회원 이름, 한줄 소개 수정하기
      **/
-    @PostMapping("setting/updateNameAndIntroduce")
-    public ResponseEntity<UserResponse.Create> updateNameAndIntroduce(@RequestBody @Valid UserRequest.UpdateNameAndIntroduce request, BindingResult bindingResult,
+    @PutMapping("setting/updateNameAndIntroduce")
+    public ResponseEntity<UserResponse> updateNameAndIntroduce(@RequestBody @Valid UserRequest.UpdateNameAndIntroduce request, BindingResult bindingResult,
                                                        @RequestHeader(name = "Authorization") String token) throws BindException, NotFoundException {
         ValidationUtils.validateBindingResult(bindingResult);
         Long userId = authServiceClient.validateToken(token);
-        return ResponseEntity.ok(UserResponse.Create.of(userService.updateNameAndIntroduce(request, userId)));
+        return ResponseEntity.ok(UserResponse.of(userService.updateNameAndIntroduce(request, userId)));
     }
+
+
+    /**
+     * 소셜 정보 수정하기
+     */
+    @PutMapping("setting/updateSocialInfo")
+    public ResponseEntity<SocialInfoResponse> updateSocialInfo(@RequestBody SocialInfoRequest request,
+                                                               @RequestHeader(name = "Authorization") String token) {
+        Long userId = authServiceClient.validateToken(token);
+        return ResponseEntity.ok(SocialInfoResponse.of(userService.updateSocialInfo(request, userId)));
+    }
+
 
     //Board 서버에서 해도 되지만 FeignClient 시험용으로 User 서버에서 시도해봄
     @GetMapping("myBoardList")
