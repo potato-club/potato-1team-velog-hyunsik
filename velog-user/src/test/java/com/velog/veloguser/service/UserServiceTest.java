@@ -3,8 +3,10 @@ package com.velog.veloguser.service;
 import com.velog.velogcommon.exception.AlreadyExistException;
 import com.velog.velogcommon.user.dto.request.LoginRequest;
 import com.velog.velogcommon.user.dto.request.SocialInfoRequest;
+import com.velog.velogcommon.user.dto.request.UserInfoRequest;
 import com.velog.velogcommon.user.dto.request.UserRequest;
 import com.velog.velogcommon.user.entity.User;
+import com.velog.velogcommon.user.entity.UserInfo;
 import com.velog.velogcommon.user.entity.UserSocialInfo;
 import com.velog.velogcommon.user.repository.UserRepository;
 import com.velog.velogcommon.utils.TokenDto;
@@ -89,6 +91,22 @@ class UserServiceTest {
         assertThatThrownBy(() -> userService.createUser(request))
                 .isInstanceOf(AlreadyExistException.class)
                 .hasMessageContaining("이미 존재하는 별명입니다.");
+    }
+
+    @Test
+    @DisplayName("유저 상세정보 수정 시 성공(블로그 이름, 알람 설정)")
+    public void 유저_상세정보_수정_성공() throws Exception {
+        //given
+        UserInfoRequest request = new UserInfoRequest("hyun6ikVelog.log", false, true);
+        Long userId = 1L;
+        //when
+        UserInfo userInfo = userService.updateUserInfo(request, userId);
+        //then
+        assertThat(userInfo.getVelogName()).isEqualTo("hyun6ikVelog.log");
+        assertThat(userInfo.isCommentAlert()).isFalse();
+        assertThat(userInfo.isUpdateAlert()).isTrue();
+
+
     }
 
     @Test

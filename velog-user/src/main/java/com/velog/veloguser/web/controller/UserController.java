@@ -3,8 +3,10 @@ package com.velog.veloguser.web.controller;
 import com.velog.velogcommon.board.dto.response.BoardResponse;
 import com.velog.velogcommon.exception.NotFoundException;
 import com.velog.velogcommon.user.dto.request.SocialInfoRequest;
-import com.velog.velogcommon.user.dto.response.SocialInfoResponse;
-import com.velog.velogcommon.user.entity.UserSocialInfo;
+import com.velog.velogcommon.user.dto.request.UserInfoRequest;
+import com.velog.velogcommon.user.dto.response.UserInfoResponse;
+import com.velog.velogcommon.user.dto.response.UserSocialInfoResponse;
+import com.velog.velogcommon.user.entity.UserInfo;
 import com.velog.velogcommon.utils.validation.ValidationUtils;
 import com.velog.velogcommon.user.dto.request.UserRequest;
 import com.velog.velogcommon.user.dto.response.UserResponse;
@@ -45,9 +47,20 @@ public class UserController {
     }
 
     /**
+     * 회원 상세 정보 수정하기 (벨로그 제목, 이메일 수신설정)
+     */
+    @PostMapping("setting/updateUserInfo")
+    public ResponseEntity<UserInfoResponse> updateUserInfo(@RequestBody @Valid UserInfoRequest request, BindingResult bindingResult,
+                                                           @RequestHeader(name = "Authorization") String token) throws BindException {
+        ValidationUtils.validateBindingResult(bindingResult);
+        Long userId = authServiceClient.validateToken(token);
+        return ResponseEntity.ok(UserInfoResponse.of(userService.updateUserInfo(request, userId)));
+    }
+
+    /**
      * 회원 이름, 한줄 소개 수정하기
      **/
-    @PutMapping("setting/updateNameAndIntroduce")
+    @PostMapping("setting/updateNameAndIntroduce")
     public ResponseEntity<UserResponse> updateNameAndIntroduce(@RequestBody @Valid UserRequest.UpdateNameAndIntroduce request, BindingResult bindingResult,
                                                        @RequestHeader(name = "Authorization") String token) throws BindException, NotFoundException {
         ValidationUtils.validateBindingResult(bindingResult);
@@ -60,10 +73,10 @@ public class UserController {
      * 소셜 정보 수정하기
      */
     @PutMapping("setting/updateSocialInfo")
-    public ResponseEntity<SocialInfoResponse> updateSocialInfo(@RequestBody SocialInfoRequest request,
-                                                               @RequestHeader(name = "Authorization") String token) {
+    public ResponseEntity<UserSocialInfoResponse> updateSocialInfo(@RequestBody SocialInfoRequest request,
+                                                                   @RequestHeader(name = "Authorization") String token) {
         Long userId = authServiceClient.validateToken(token);
-        return ResponseEntity.ok(SocialInfoResponse.of(userService.updateSocialInfo(request, userId)));
+        return ResponseEntity.ok(UserSocialInfoResponse.of(userService.updateSocialInfo(request, userId)));
     }
 
 

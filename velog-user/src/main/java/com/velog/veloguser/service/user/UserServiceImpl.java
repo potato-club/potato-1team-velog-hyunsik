@@ -3,6 +3,7 @@ package com.velog.veloguser.service.user;
 import com.velog.velogcommon.board.dto.response.BoardResponse;
 import com.velog.velogcommon.exception.NotFoundException;
 import com.velog.velogcommon.user.dto.request.SocialInfoRequest;
+import com.velog.velogcommon.user.dto.request.UserInfoRequest;
 import com.velog.velogcommon.user.entity.UserImage;
 import com.velog.velogcommon.user.entity.UserInfo;
 import com.velog.velogcommon.user.entity.UserSocialInfo;
@@ -57,6 +58,13 @@ public class UserServiceImpl implements UserService {
 
     @Transactional
     @Override
+    public UserInfo updateUserInfo(UserInfoRequest request, Long userId) {
+        User findUser = userRepository.findById(userId).orElseThrow(() -> new NotFoundException(ErrorCode.NOT_FOUND_EXCEPTION_USER));
+        return UserServiceUtils.updateUserInfo(userRepository, findUser.getUserInfo(), request);
+    }
+
+    @Transactional
+    @Override
     public User updateNameAndIntroduce(UserRequest.UpdateNameAndIntroduce request, Long userId) throws NotFoundException {
         User findUser = userRepository.findById(userId).orElseThrow(() -> new NotFoundException(ErrorCode.NOT_FOUND_EXCEPTION_USER));
         return UserServiceUtils.updateNameAndIntroduce(userRepository, findUser, request.getName(), request.getIntroduce());
@@ -69,4 +77,6 @@ public class UserServiceImpl implements UserService {
         User findUser = userRepository.findById(userId).orElseThrow(() -> new NotFoundException(ErrorCode.NOT_FOUND_EXCEPTION_USER));
         return UserServiceUtils.updateSocialInfo(userRepository, findUser.getUserInfo().getUserSocialInfo(), request);
     }
+
+
 }

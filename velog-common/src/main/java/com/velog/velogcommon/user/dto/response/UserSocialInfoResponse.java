@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class SocialInfoResponse {
+public class UserSocialInfoResponse {
 
         private String email;
 
@@ -21,7 +21,7 @@ public class SocialInfoResponse {
         private String homePage;
 
         @Builder
-        public SocialInfoResponse(String email, String github, String twitter, String facebook, String homePage) {
+        public UserSocialInfoResponse(String email, String github, String twitter, String facebook, String homePage) {
             this.email = email;
             this.github = github;
             this.twitter = twitter;
@@ -29,8 +29,8 @@ public class SocialInfoResponse {
             this.homePage = homePage;
         }
 
-        public static SocialInfoResponse of(UserSocialInfo socialInfo) {
-            return new SocialInfoResponse().builder().email(socialInfo.getEmail()).github(socialInfo.getGithub())
+        public static UserSocialInfoResponse of(UserSocialInfo socialInfo) {
+            return new UserSocialInfoResponse().builder().email(socialInfo.getEmail()).github(socialInfo.getGithub())
                     .twitter(socialInfo.getTwitter()).facebook(socialInfo.getFacebook()).homePage(socialInfo.getHomePage())
                     .build();
         }

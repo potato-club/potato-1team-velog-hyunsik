@@ -1,5 +1,6 @@
 package com.velog.velogcommon.user.entity;
 
+import com.velog.velogcommon.user.dto.request.UserInfoRequest;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -61,6 +62,12 @@ public class UserInfo {
         userImage.addUserInfo(this);
     }
 
+    public void update(UserInfoRequest request) {
+        this.velogName = request.getVelogName();
+        this.isCommentAlert = request.isCommentAlert();
+        this.isUpdateAlert = request.isUpdateAlert();
+    }
+
     public static UserInfo createUserInfo(String velogName, boolean isCommentAlert, boolean isUpdateAlert) {
         return new UserInfo().builder()
                 .velogName(velogName)
@@ -76,5 +83,6 @@ public class UserInfo {
         userInfo.addUserImage(userImage);
         return userInfo;
     }
+
 
 }

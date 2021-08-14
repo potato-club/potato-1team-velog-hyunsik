@@ -2,6 +2,7 @@ package com.velog.veloguser.service.user;
 
 import com.velog.velogcommon.exception.AlreadyExistException;
 import com.velog.velogcommon.user.dto.request.SocialInfoRequest;
+import com.velog.velogcommon.user.dto.request.UserInfoRequest;
 import com.velog.velogcommon.user.entity.User;
 import com.velog.velogcommon.user.entity.UserInfo;
 import com.velog.velogcommon.user.entity.UserSocialInfo;
@@ -28,6 +29,11 @@ public class UserServiceUtils {
         }
     }
 
+    public static UserInfo updateUserInfo(UserRepository userRepository, UserInfo userInfo, UserInfoRequest request) {
+        userInfo.update(request);
+        return userRepository.save(userInfo.getUser()).getUserInfo();
+    }
+
     public static User updateNameAndIntroduce(UserRepository userRepository, User findUser, String name, String introduce) {
         User changedUser = User.updateNameAndIntroduce(findUser, name, introduce);
         User savedUser = userRepository.save(changedUser);
@@ -40,4 +46,6 @@ public class UserServiceUtils {
         return userRepository.save(userSocialInfo.getUserInfo().getUser()).getUserInfo().getUserSocialInfo();
 
     }
+
+
 }
