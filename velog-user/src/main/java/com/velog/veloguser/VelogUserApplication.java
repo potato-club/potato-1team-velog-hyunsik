@@ -1,5 +1,6 @@
 package com.velog.veloguser;
 
+import com.velog.veloguser.web.error.FeignErrorDecoder;
 import feign.Logger;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -39,8 +40,8 @@ public class VelogUserApplication {
         return Logger.Level.FULL;
     }
 
-//    @Bean
-//    public FeignErrorDecoder getFeignErrorDecoder() {
-//        return new FeignErrorDecoder();
-//    }
+    @Bean
+    public FeignErrorDecoder getFeignErrorDecoder() {
+        return new FeignErrorDecoder();
+    }
 }

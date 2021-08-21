@@ -1,11 +1,11 @@
 package com.velog.velogboard.web.controller;
 
-import com.velog.velogboard.service.BoardService;
+import com.velog.velogboard.service.board.BoardService;
+import com.velog.velogboard.web.client.AuthServiceClient;
 import com.velog.velogcommon.utils.validation.ValidationUtils;
 import com.velog.velogcommon.board.dto.request.BoardRequest;
 import com.velog.velogcommon.board.dto.response.BoardResponse;
 import com.velog.velogcommon.utils.Result;
-import javassist.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -23,11 +23,13 @@ import java.util.List;
 public class BoardController {
 
     private final BoardService boardService;
+    private final AuthServiceClient authServiceClient;
 
     @PostMapping("createBoard")
     public Result<BoardResponse> createBoard(@Valid @RequestBody BoardRequest request, BindingResult bindingResult, @RequestHeader(name = "Authorization") String token) throws BindException {
         ValidationUtils.validateBindingResult(bindingResult);
-        return Result.success(boardService.createBoard(request, token));
+        Long userId = authServiceClient.validateToken(token);
+        return Result.success(boardService.createBoard(request, userId));
     }
 
     @GetMapping("myBoardList")

@@ -1,17 +1,19 @@
-package com.velog.velogboard.service;
+package com.velog.velogboard.service.board;
 
 import com.velog.velogboard.web.client.AuthServiceClient;
-import com.velog.velogcommon.board.entity.Board;
 import com.velog.velogcommon.board.repository.BoardRepository;
 import com.velog.velogcommon.board.dto.request.BoardRequest;
 import com.velog.velogcommon.board.dto.response.BoardResponse;
+import com.velog.velogcommon.exception.NotFoundException;
+import com.velog.velogcommon.user.entity.User;
+import com.velog.velogcommon.user.repository.UserRepository;
+import com.velog.velogcommon.utils.error.ErrorCode;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -20,12 +22,15 @@ import java.util.stream.Collectors;
 public class BoardServiceImpl implements BoardService {
 
     private final BoardRepository boardRepository;
+    private final UserRepository userRepository;
     private final AuthServiceClient authServiceClient;
 
-
+    @Transactional
     @Override
-    public BoardResponse createBoard(BoardRequest request, String token) {
-        return null;
+    public BoardResponse createBoard(BoardRequest request, Long userId) {
+        User user = userRepository.findById(userId).orElseThrow(() -> new NotFoundException(ErrorCode.NOT_FOUND_EXCEPTION_USER));
+        boardRepository.save(BoardServiceUtils.createBoard(request, user));
+        return BoardResponse.of(BoardServiceUtils.createBoard(request, user));
     }
 
     @Override

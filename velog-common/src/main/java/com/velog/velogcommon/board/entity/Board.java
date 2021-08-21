@@ -1,5 +1,6 @@
 package com.velog.velogcommon.board.entity;
 
+import com.velog.velogcommon.board.dto.request.BoardRequest;
 import com.velog.velogcommon.user.entity.User;
 import com.velog.velogcommon.utils.BaseTimeEntity;
 import lombok.AccessLevel;
@@ -39,10 +40,13 @@ public class Board extends BaseTimeEntity {
     private BoardInfo boardInfo;
 
     @OneToMany(mappedBy = "board", cascade = ALL)
-    private final List<Comment> commentList = new ArrayList<>();
+    private List<Comment> commentList = new ArrayList<>();
 
     @OneToMany(mappedBy = "board", cascade = ALL)
-    private final List<HashTag> hashTagList = new ArrayList<>();
+    private List<HashTag> hashTagList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "board", cascade = ALL)
+    private List<BoardImage> boardImageList = new ArrayList<>();
 
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "user_id")
@@ -75,7 +79,21 @@ public class Board extends BaseTimeEntity {
         hashTag.addBoard(this);
     }
 
-    public static Board of(Board board, BoardSeries boardSeries, BoardInfo boardInfo, List<Comment> commentList, List<HashTag> hashTagList) {
+    public void addBoardImage(BoardImage boardImage) {
+        boardImageList.add(boardImage);
+        boardImage.addBoard(this);
+    }
+
+    public static Board createBoard(BoardRequest request) {
+        return new Board().builder()
+                .title(request.getTitle())
+                .content(request.getContent())
+                .build();
+    }
+
+
+    public static Board of(Board board, BoardSeries boardSeries, BoardInfo boardInfo, List<Comment> commentList, List<HashTag> hashTagList,
+                           List<BoardImage> boardImageList) {
         board.addBoardSeries(boardSeries);
         board.addBoardInfo(boardInfo);
         for (Comment comment : commentList) {
@@ -83,6 +101,9 @@ public class Board extends BaseTimeEntity {
         }
         for (HashTag hashTag : hashTagList) {
             board.addHashTag(hashTag);
+        }
+        for (BoardImage boardImage : boardImageList) {
+            board.addBoardImage(boardImage);
         }
         return board;
     }

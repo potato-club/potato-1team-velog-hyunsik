@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
@@ -19,5 +21,12 @@ public class BoardRequest {
     @Size(min = 10, max = 1000)
     private String content;
 
+    private BoardSeriesRequest boardSeriesRequest;
+
+    private BoardInfoRequest boardInfoRequest;
+
+    private List<BoardImageRequest> boardImageRequestList = new ArrayList<>();
+
+    private List<HashTagRequest> hashTagRequestList = new ArrayList<>();
 
 }

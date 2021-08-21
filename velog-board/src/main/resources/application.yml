@@ -1,6 +1,23 @@
 server:
   port: 8050
 
+cloud:
+  aws:
+    credentials:
+      access-key: AKIASQFSAJE5DW44PSON
+      secret-key: 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
+    region:
+      static: ap-northeast-2
+    stack:
+      auto: false
+    s3URL:
+      https://potatovelog.s3.ap-northeast-2.com/
+
+
+application:
+  bucket:
+    name: potatovelog
+
 spring:
   application:
     name: potato-velog-board
@@ -23,6 +40,13 @@ spring:
         format_sql: true
         use_sql_comments: true
         default_batch_fetch_size: 100
+  servlet:
+    multipart:
+      enabled: true
+      file-size-threshold: 2MB
+      max-file-size: 5MB
+      max-request-size: 10MB
+
 eureka:
   client:
     register-with-eureka: true

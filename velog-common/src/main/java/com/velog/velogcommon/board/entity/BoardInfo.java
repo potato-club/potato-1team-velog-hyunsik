@@ -1,5 +1,6 @@
 package com.velog.velogcommon.board.entity;
 
+import com.velog.velogcommon.board.dto.request.BoardRequest;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -28,6 +29,23 @@ public class BoardInfo {
 
     @OneToOne(mappedBy = "boardInfo", fetch = LAZY)
     private Board board;
+
+    @Builder
+    public BoardInfo(String introduce, int likeCount, boolean isPublic, String boardUrl) {
+        this.introduce = introduce;
+        this.likeCount = likeCount;
+        this.isPublic = isPublic;
+        this.boardUrl = boardUrl;
+    }
+
+    public static BoardInfo createBoardInfo(BoardRequest request) {
+        return new BoardInfo().builder()
+                .introduce(request.getBoardInfoRequest().getIntroduce())
+                .likeCount(0)
+                .isPublic(request.getBoardInfoRequest().isPublic())
+                .boardUrl(request.getBoardInfoRequest().getBoardUrl())
+                .build();
+    }
 
 
     //

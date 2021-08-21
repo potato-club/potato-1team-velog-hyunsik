@@ -1,5 +1,6 @@
 package com.velog.velogcommon.board.entity;
 
+import com.velog.velogcommon.board.dto.request.BoardRequest;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,4 +22,13 @@ public class BoardSeries {
 
     @OneToMany(mappedBy = "boardSeries")
     private final List<Board> boardList = new ArrayList<>();
+
+
+    public BoardSeries(String name) {
+        this.name = name;
+    }
+
+    public static BoardSeries createBoardSeries(BoardRequest request) {
+        return new BoardSeries(request.getBoardSeriesRequest().getName());
+    }
 }
