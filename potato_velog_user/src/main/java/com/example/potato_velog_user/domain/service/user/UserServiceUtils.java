@@ -29,9 +29,9 @@ public class UserServiceUtils {
         }
     }
 
-    public static UserInfo updateUserInfo(UserRepository userRepository, UserInfo userInfo, UserInfoRequest request) {
-        userInfo.update(request);
-        return userRepository.save(userInfo.getUser()).getUserInfo();
+    public static UserInfo updateUserInfo(UserRepository userRepository, User user, UserInfoRequest request) {
+        user.getUserInfo().update(request);
+        return userRepository.save(user).getUserInfo();
     }
 
     public static User updateNameAndIntroduce(UserRepository userRepository, User findUser, String name, String introduce) {

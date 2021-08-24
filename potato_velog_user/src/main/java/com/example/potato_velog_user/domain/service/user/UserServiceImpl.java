@@ -49,7 +49,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserInfo updateUserInfo(UserInfoRequest request, String uuId) {
         User findUser = userRepository.findByUserUUId(uuId).orElseThrow(() -> new NotFoundException(ErrorCode.NOT_FOUND_EXCEPTION_USER));
-        return UserServiceUtils.updateUserInfo(userRepository, findUser.getUserInfo(), request);
+        return UserServiceUtils.updateUserInfo(userRepository, findUser, request);
     }
 
     @Transactional

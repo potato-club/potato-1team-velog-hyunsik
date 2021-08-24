@@ -34,7 +34,7 @@ public class User extends BaseTimeEntity {
 
     private String userUUId;
 
-    @OneToOne(fetch = LAZY, cascade = ALL)
+    @OneToOne(fetch = LAZY, cascade = ALL, orphanRemoval = true)
     @JoinColumn(name = "userInfo_id")
     private UserInfo userInfo;
 

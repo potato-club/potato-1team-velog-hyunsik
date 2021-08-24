@@ -4,8 +4,11 @@ import com.example.potato_velog_user.domain.entity.User;
 import com.example.potato_velog_user.domain.entity.UserInfo;
 import com.example.potato_velog_user.domain.entity.UserSocialInfo;
 import com.example.potato_velog_user.domain.repository.UserRepository;
+import com.example.potato_velog_user.domain.service.auth.AuthService;
 import com.example.potato_velog_user.exception.AlreadyExistException;
 import com.example.potato_velog_user.domain.service.user.UserService;
+import com.example.potato_velog_user.utils.TokenDto;
+import com.example.potato_velog_user.web.dto.auth.request.LoginRequest;
 import com.example.potato_velog_user.web.dto.user.request.SocialInfoRequest;
 import com.example.potato_velog_user.web.dto.user.request.UserInfoRequest;
 import com.example.potato_velog_user.web.dto.user.request.UserRequest;
@@ -30,16 +33,18 @@ class UserServiceTest {
     @Autowired
     UserService userService;
     @Autowired
+    AuthService authService;
+    @Autowired
     UserRepository userRepository;
     @Autowired
     EntityManager em;
 
     @BeforeEach
-    public String init() throws BindException {
+    public void init() throws BindException {
         UserRequest.Create request = UserRequest.Create.of
                 ("bbb@naver.com", "12345678", "홍길동", "nickName", "안녕하세요");
-        final User user = userService.createUser(request);
-        return user.getUserUUId();
+        userService.createUser(request);
+
     }
 
     @AfterEach
@@ -95,8 +100,10 @@ class UserServiceTest {
     public void 유저_상세정보_수정_성공() throws Exception {
         //given
         UserInfoRequest request = new UserInfoRequest("hyun6ikVelog.log", false, true);
-        final String uuId = init();
+
         //when
+        final TokenDto tokenDto = authService.login(new LoginRequest("bbb@naver.com", "12345678"));
+        final String uuId = authService.validateToken(tokenDto.getToken());
         UserInfo userInfo = userService.updateUserInfo(request, uuId);
         //then
         assertThat(userInfo.getVelogName()).isEqualTo("hyun6ikVelog.log");
@@ -111,7 +118,8 @@ class UserServiceTest {
     public void 이름_한줄소개_수정_성공() throws Exception {
         //given
         UserRequest.UpdateNameAndIntroduce request = UserRequest.UpdateNameAndIntroduce.of("홍길동2", "안반가워요");
-        final String uuId = init();
+        final TokenDto tokenDto = authService.login(new LoginRequest("bbb@naver.com", "12345678"));
+        final String uuId = authService.validateToken(tokenDto.getToken());
         //when
         User changedUser = userService.updateNameAndIntroduce(request, uuId);
         //then
@@ -126,7 +134,8 @@ class UserServiceTest {
     public void 소셜_정보_등록_수정() throws Exception {
         //given
         SocialInfoRequest request = new SocialInfoRequest("bbb@gmail.com", "hyun6ik2", "hyun6ikTwitter", "", "https://github.com/hyun6ik");
-        final String uuId = init();
+        final TokenDto tokenDto = authService.login(new LoginRequest("bbb@naver.com", "12345678"));
+        final String uuId = authService.validateToken(tokenDto.getToken());
         //when
         UserSocialInfo socialInfo = userService.updateSocialInfo(request, uuId);
         //then
@@ -135,8 +144,8 @@ class UserServiceTest {
         assertThat(socialInfo.getTwitter()).isEqualTo("hyun6ikTwitter");
         assertThat(socialInfo.getFacebook()).isBlank();
         assertThat(socialInfo.getHomePage()).isEqualTo("https://github.com/hyun6ik");
-        assertThat(socialInfo.getUserInfo().getUser().getId()).isEqualTo(1L);
-        assertThat(socialInfo.getUserInfo().getId()).isEqualTo(1L);
+        assertThat(socialInfo.getUserInfo().getUser().getId()).isEqualTo(2L);
+        assertThat(socialInfo.getUserInfo().getId()).isEqualTo(2L);
     }
 
 

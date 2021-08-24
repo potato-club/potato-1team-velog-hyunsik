@@ -1,6 +1,7 @@
 package com.example.potato_velog_user.domain.entity;
 
 import com.example.potato_velog_user.web.dto.user.request.UserInfoRequest;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -22,18 +23,20 @@ public class UserInfo {
 
     private String velogName;
 
+    @JsonProperty
     private boolean isCommentAlert;
 
+    @JsonProperty
     private boolean isUpdateAlert;
 
     @OneToOne(mappedBy = "userInfo", fetch = LAZY)
     private User user;
 
-    @OneToOne(fetch = LAZY, cascade = ALL)
+    @OneToOne(fetch = LAZY, cascade = ALL, orphanRemoval = true)
     @JoinColumn(name = "userSocialInfo_id")
     private UserSocialInfo userSocialInfo;
 
-    @OneToOne(fetch = LAZY, cascade = ALL)
+    @OneToOne(fetch = LAZY, cascade = ALL, orphanRemoval = true)
     @JoinColumn(name = "userImage_Id")
     private UserImage userImage;
 
