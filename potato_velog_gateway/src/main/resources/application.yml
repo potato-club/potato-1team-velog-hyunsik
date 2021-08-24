@@ -1,0 +1,72 @@
+server:
+  port: 8070
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+
+spring:
+  application:
+    name: potato-velog-gateway
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+  cloud:
+    gateway:
+      routes:
+        - id: potato-velog-user
+          uri: lb://POTATO-VELOG-USER
+          predicates:
+            - Path=/potato-velog-user/createUser, /potato-velog-user/authenticate
+            - Method=POST
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/potato-velog-user/(?<segment>.*), /$\{segment}
+        - id: potato-velog-user
+          uri: lb://POTATO-VELOG-USER
+          predicates:
+            - Path=/potato-velog-user/actuator/**
+            - Method=GET,POST
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/potato-velog-user/(?<segment>.*), /$\{segment}
+        - id: potato-velog-user
+          uri: lb://POTATO-VELOG-USER
+          predicates:
+            - Path=/potato-velog-user/**
+            - Method=GET,POST
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/potato-velog-user/(?<segment>.*), /$\{segment}
+#            - AuthorizationHeaderFilter
+        - id: potato-velog-board
+          uri: lb://POTATO-VELOG-BOARD
+          predicates:
+            - Path=/potato-velog-board/myBoardList
+            - Method=GET
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/potato-velog-board/(?<segment>.*), /$\{segment}
+        - id: potato-velog-board
+          uri: lb://POTATO-VELOG-BOARD
+          predicates:
+            - Path=/potato-velog-board/**
+            - Method=GET,POST
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/potato-velog-board/(?<segment>.*), /$\{segment}
+#            - AuthorizationHeaderFilter
+
+token:
+  secret: potato_velog
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh, beans, health, httptrace, busrefresh
