@@ -32,11 +32,15 @@ public class User extends BaseTimeEntity {
     @Column(length = 30)
     private String introduce;
 
-    private String userUUId;
+    private String uuid;
 
     @OneToOne(fetch = LAZY, cascade = ALL, orphanRemoval = true)
     @JoinColumn(name = "userInfo_id")
     private UserInfo userInfo;
+
+    @OneToOne(fetch = LAZY, cascade = ALL, orphanRemoval = true)
+    @JoinColumn(name = "userImage_id")
+    private UserImage userImage;
 
     //생성자 메소드
     @Builder
@@ -46,7 +50,7 @@ public class User extends BaseTimeEntity {
         this.encodedPassword = encodedPassword;
         this.nickName = nickName;
         this.introduce = introduce;
-        this.userUUId = UUID.randomUUID().toString();
+        this.uuid = UUID.randomUUID().toString();
     }
 
 
@@ -55,7 +59,10 @@ public class User extends BaseTimeEntity {
         this.userInfo = userInfo;
         userInfo.addUser(this);
     }
-
+    public void addUserImage(UserImage userImage) {
+        this.userImage = userImage;
+        userImage.addUser(this);
+    }
 
     public static User createUser(String email, String name, String encodedPassword, String nickName, String introduce) {
         return new User().builder()
@@ -78,5 +85,6 @@ public class User extends BaseTimeEntity {
         user.introduce = introduce;
         return user;
     }
+
 
 }

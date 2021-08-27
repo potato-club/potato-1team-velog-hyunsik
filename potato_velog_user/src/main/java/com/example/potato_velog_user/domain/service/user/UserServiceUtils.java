@@ -1,16 +1,27 @@
 package com.example.potato_velog_user.domain.service.user;
 
 import com.example.potato_velog_user.domain.entity.User;
+import com.example.potato_velog_user.domain.entity.UserImage;
 import com.example.potato_velog_user.domain.entity.UserInfo;
 import com.example.potato_velog_user.domain.entity.UserSocialInfo;
-import com.example.potato_velog_user.domain.repository.UserRepository;
+import com.example.potato_velog_user.domain.repository.user.UserRepository;
 import com.example.potato_velog_user.exception.AlreadyExistException;
 import com.example.potato_velog_user.utils.error.ErrorCode;
 import com.example.potato_velog_user.web.dto.user.request.SocialInfoRequest;
 import com.example.potato_velog_user.web.dto.user.request.UserInfoRequest;
+import com.example.potato_velog_user.web.dto.user.request.UserRequest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 public class UserServiceUtils {
+
+    public static User createUser(UserRequest.Create request, String encodedPassword) {
+        final User user = User.createUser(request.getEmail(), request.getName(), encodedPassword, request.getNickName(), request.getIntroduce());
+        final UserInfo userInfo = UserInfo.createUserInfo(user.getNickName() + ".log", false, false);
+        final UserSocialInfo userSocialInfo = UserSocialInfo.of(null, null, null, null, null);
+        userInfo.addUserSocialInfo(userSocialInfo);
+        user.addUserInfo(userInfo);
+        return user;
+    }
 
     public static String encodePassword(PasswordEncoder passwordEncoder, String password) {
         return passwordEncoder.encode(password);

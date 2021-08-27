@@ -5,6 +5,7 @@ import com.example.potato_velog_user.domain.service.user.UserService;
 import com.example.potato_velog_user.utils.validation.FieldErrorDetail;
 import com.example.potato_velog_user.utils.validation.ValidationCode;
 import com.example.potato_velog_user.utils.validation.ValidationResult;
+import com.example.potato_velog_user.web.controller.user.UserController;
 import com.example.potato_velog_user.web.dto.user.request.UserInfoRequest;
 import com.example.potato_velog_user.web.dto.user.request.UserRequest;
 import org.junit.jupiter.api.BeforeEach;

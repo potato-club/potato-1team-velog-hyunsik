@@ -36,9 +36,7 @@ public class UserInfo {
     @JoinColumn(name = "userSocialInfo_id")
     private UserSocialInfo userSocialInfo;
 
-    @OneToOne(fetch = LAZY, cascade = ALL, orphanRemoval = true)
-    @JoinColumn(name = "userImage_Id")
-    private UserImage userImage;
+
 
 
     // 생성자 메소드
@@ -60,10 +58,6 @@ public class UserInfo {
         userSocialInfo.addUserInfo(this);
     }
 
-    public void addUserImage(UserImage userImage) {
-        this.userImage = userImage;
-        userImage.addUserInfo(this);
-    }
 
     public void update(UserInfoRequest request) {
         this.velogName = request.getVelogName();
@@ -83,7 +77,6 @@ public class UserInfo {
     // 스태틱 (생성자) 메소드
     public static UserInfo of(UserInfo userInfo, UserSocialInfo userSocialInfo, UserImage userImage) {
         userInfo.addUserSocialInfo(userSocialInfo);
-        userInfo.addUserImage(userImage);
         return userInfo;
     }
 

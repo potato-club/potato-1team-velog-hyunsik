@@ -25,7 +25,7 @@ public class UserImage {
     private String uploadImageName;
 
     @OneToOne(mappedBy = "userImage", fetch = LAZY)
-    private UserInfo userInfo;
+    private User user;
 
     @Builder
     public UserImage(String originalImageName, String uploadImageUrl, String uploadImageName) {
@@ -35,8 +35,8 @@ public class UserImage {
     }
 
     //연관 관계 메소드
-    public void addUserInfo(UserInfo userInfo) {
-        this.userInfo = userInfo;
+    public void addUser(User user) {
+        this.user = user;
     }
 
     public static UserImage of(String originalImageName, String uploadImageUrl, String uploadImageName) {
@@ -46,4 +46,6 @@ public class UserImage {
                 .uploadImageName(uploadImageName)
                 .build();
     }
+
+
 }

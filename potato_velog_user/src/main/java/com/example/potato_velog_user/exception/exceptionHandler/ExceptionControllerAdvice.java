@@ -1,4 +1,4 @@
-package com.example.potato_velog_user.exceptionHandler;
+package com.example.potato_velog_user.exception.exceptionHandler;
 
 import com.example.potato_velog_user.exception.AlreadyExistException;
 import com.example.potato_velog_user.exception.BusinessException;

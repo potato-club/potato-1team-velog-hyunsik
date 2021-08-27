@@ -1,4 +1,4 @@
-package com.example.potato_velog_user.web.controller;
+package com.example.potato_velog_user.web.controller.auth;
 
 import com.example.potato_velog_user.domain.service.auth.AuthService;
 import com.example.potato_velog_user.exception.NotFoundException;

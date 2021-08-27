@@ -67,14 +67,17 @@ dependencies {
     // https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-starter-openfeign
     implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-openfeign', version: '3.0.3'
 
-// https://mvnrepository.com/artifact/io.projectreactor/reactor-test
+    // https://mvnrepository.com/artifact/io.projectreactor/reactor-test
     testImplementation group: 'io.projectreactor', name: 'reactor-test', version: '3.4.8'
-// https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-webflux
+    // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-webflux
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-webflux', version: '2.5.2'
 
 
     // https://mvnrepository.com/artifact/org.apache.kafka/kafka-clients
     implementation group: 'org.apache.kafka', name: 'kafka-clients', version: '2.8.0'
+
+    // https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-aws-core
+    implementation group: 'org.springframework.cloud', name: 'spring-cloud-aws-core', version: '2.2.6.RELEASE'
 
 
     runtimeOnly 'com.h2database:h2'
@@ -89,3 +92,4 @@ dependencyManagement {
 test {
     useJUnitPlatform()
 }
+

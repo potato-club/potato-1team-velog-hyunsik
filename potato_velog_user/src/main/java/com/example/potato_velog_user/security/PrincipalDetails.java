@@ -33,7 +33,7 @@ public class PrincipalDetails implements UserDetails {
     }
 
     public String getUserId(){
-        return user.getUserUUId();
+        return user.getUuid();
     }
 
 

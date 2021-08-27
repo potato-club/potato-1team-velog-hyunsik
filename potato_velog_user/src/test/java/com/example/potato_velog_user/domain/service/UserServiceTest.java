@@ -3,7 +3,7 @@ package com.example.potato_velog_user.domain.service;
 import com.example.potato_velog_user.domain.entity.User;
 import com.example.potato_velog_user.domain.entity.UserInfo;
 import com.example.potato_velog_user.domain.entity.UserSocialInfo;
-import com.example.potato_velog_user.domain.repository.UserRepository;
+import com.example.potato_velog_user.domain.repository.user.UserRepository;
 import com.example.potato_velog_user.domain.service.auth.AuthService;
 import com.example.potato_velog_user.exception.AlreadyExistException;
 import com.example.potato_velog_user.domain.service.user.UserService;

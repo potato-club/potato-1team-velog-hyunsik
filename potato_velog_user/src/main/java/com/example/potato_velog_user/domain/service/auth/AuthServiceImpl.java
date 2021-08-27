@@ -1,7 +1,7 @@
 package com.example.potato_velog_user.domain.service.auth;
 
 import com.example.potato_velog_user.domain.entity.User;
-import com.example.potato_velog_user.domain.repository.AuthRepository;
+import com.example.potato_velog_user.domain.repository.auth.AuthRepository;
 import com.example.potato_velog_user.exception.NotFoundException;
 import com.example.potato_velog_user.security.jwt.JwtFilter;
 import com.example.potato_velog_user.security.jwt.TokenProvider;
@@ -26,7 +26,7 @@ public class AuthServiceImpl implements AuthService {
     public TokenDto login(LoginRequest loginRequest) throws NotFoundException {
 
         User findUser = authRepository.findByEmail(loginRequest.getEmail()).orElseThrow(() -> new NotFoundException(ErrorCode.NOT_FOUND_EXCEPTION_USER));
-        String jwt = tokenProvider.createToken(findUser.getUserUUId());
+        String jwt = tokenProvider.createToken(findUser.getUuid());
 
         return TokenDto.of(jwt);
     }

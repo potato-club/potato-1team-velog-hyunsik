@@ -30,10 +30,10 @@ public class TokenProvider {
         this.env = env;
     }
 
-    public String createToken(String userUUId) {
+    public String createToken(String uuid) {
 
         return Jwts.builder()
-                .setSubject(userUUId)
+                .setSubject(uuid)
                 .setExpiration(new Date(System.currentTimeMillis() + Long.parseLong(Objects.requireNonNull(env.getProperty("token.expiration_time")))))
                 .signWith(SignatureAlgorithm.HS512, env.getProperty("token.secret"))
                 .compact();

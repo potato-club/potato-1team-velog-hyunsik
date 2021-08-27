@@ -2,6 +2,7 @@ package com.example.potato_velog_board.web.dto.response;
 
 import com.example.potato_velog_board.domain.entity.Board;
 import com.example.potato_velog_board.domain.entity.ImageType;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -25,6 +26,7 @@ public class BoardImageResponse {
     @Enumerated(EnumType.STRING)
     private ImageType imageType;
 
+    @JsonProperty
     private boolean isSuccessUpload;
 
     private String markDown;

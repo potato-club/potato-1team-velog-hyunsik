@@ -1,4 +1,4 @@
-package com.example.potato_velog_user.web.controller;
+package com.example.potato_velog_user.web.controller.user;
 
 import com.example.potato_velog_user.domain.service.auth.AuthService;
 import com.example.potato_velog_user.exception.NotFoundException;
@@ -69,7 +69,7 @@ public class UserController {
     /**
      * 소셜 정보 수정하기
      */
-    @PutMapping("setting/updateSocialInfo")
+    @PostMapping("setting/updateSocialInfo")
     public ResponseEntity<UserSocialInfoResponse> updateSocialInfo(@RequestBody SocialInfoRequest request,
                                                                    @RequestHeader(name = "Authorization") String token) {
         final String uuId = authService.validateToken(token);
