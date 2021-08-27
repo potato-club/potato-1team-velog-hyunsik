@@ -22,8 +22,8 @@ public class BoardServiceImpl implements BoardService {
 
     @Transactional
     @Override
-    public BoardResponse createBoard(BoardRequest request, Long userId) {
-        return BoardResponse.of(boardRepository.save(BoardServiceUtils.createBoard(request, userId)));
+    public BoardResponse createBoard(BoardRequest request, String uuid) {
+        return BoardResponse.of(boardRepository.save(BoardServiceUtils.createBoard(request, uuid)));
     }
 
     @Override

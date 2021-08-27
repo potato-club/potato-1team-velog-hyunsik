@@ -31,31 +31,31 @@ public class Board extends BaseTimeEntity {
     @Column(length = 1000)
     private String content;
 
-    private Long userUUId;
+    private String uuid;
 
-    @ManyToOne(fetch = LAZY)
+    @ManyToOne(fetch = LAZY, cascade = ALL)
     @JoinColumn(name = "boardSeries_id")
     private BoardSeries boardSeries;
 
-    @OneToOne(fetch = LAZY, cascade = ALL)
+    @OneToOne(fetch = LAZY, cascade = ALL, orphanRemoval = true)
     @JoinColumn(name = "boardInfo_id")
     private BoardInfo boardInfo;
 
-    @OneToMany(mappedBy = "board", cascade = ALL)
+    @OneToMany(mappedBy = "board", cascade = ALL, orphanRemoval = true)
     private List<Comment> commentList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "board", cascade = ALL)
+    @OneToMany(mappedBy = "board", cascade = ALL, orphanRemoval = true)
     private List<HashTag> hashTagList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "board", cascade = ALL)
+    @OneToMany(mappedBy = "board", cascade = ALL, orphanRemoval = true)
     private List<BoardImage> boardImageList = new ArrayList<>();
 
 
     @Builder
-    public Board(String title, String content, Long userId) {
+    public Board(String title, String content, String uuid) {
         this.title = title;
         this.content = content;
-        this.userUUId = userId;
+        this.uuid = uuid;
     }
 
     //연관 관계 메소드
@@ -84,22 +84,19 @@ public class Board extends BaseTimeEntity {
         boardImage.addBoard(this);
     }
 
-    public static Board createBoard(BoardRequest request, Long userId) {
+    public static Board createBoard(BoardRequest request, String uuid) {
         return new Board().builder()
                 .title(request.getTitle())
                 .content(request.getContent())
-                .userId(userId)
+                .uuid(uuid)
                 .build();
     }
 
 
-    public static Board of(Board board, BoardSeries boardSeries, BoardInfo boardInfo, List<Comment> commentList, List<HashTag> hashTagList,
+    public static Board of(Board board, BoardSeries boardSeries, BoardInfo boardInfo, List<HashTag> hashTagList,
                            List<BoardImage> boardImageList) {
         board.addBoardSeries(boardSeries);
         board.addBoardInfo(boardInfo);
-        for (Comment comment : commentList) {
-            board.addComment(comment);
-        }
         for (HashTag hashTag : hashTagList) {
             board.addHashTag(hashTag);
         }

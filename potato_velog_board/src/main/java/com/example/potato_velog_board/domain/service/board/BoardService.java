@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface BoardService {
 
-    BoardResponse createBoard(BoardRequest request, Long userId);
+    BoardResponse createBoard(BoardRequest request, String uuid);
 
     List<BoardResponse> retrieveBoardList(String token);
 }

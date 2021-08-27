@@ -27,8 +27,8 @@ public class BoardController {
     @PostMapping("createBoard")
     public Result<BoardResponse> createBoard(@Valid @RequestBody BoardRequest request, BindingResult bindingResult, @RequestHeader(name = "Authorization") String token) throws BindException {
         ValidationUtils.validateBindingResult(bindingResult);
-        Long userId = userServiceClient.validateToken(token);
-        return Result.success(boardService.createBoard(request, userId));
+        String uuid = userServiceClient.validateToken(token);
+        return Result.success(boardService.createBoard(request, uuid));
     }
 
     @GetMapping("myBoardList")

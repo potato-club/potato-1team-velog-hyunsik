@@ -30,8 +30,6 @@ public class BoardImage {
     @Enumerated(EnumType.STRING)
     private ImageType imageType;
 
-    private boolean isSuccessUpload;
-
     private String markDown;
 
     @ManyToOne(fetch = LAZY)
@@ -39,13 +37,11 @@ public class BoardImage {
     private Board board;
 
     @Builder
-    public BoardImage(String originalImageName, String uploadImageUrl, String uploadImageName, ImageType imageType,
-                      boolean isSuccessUpload, String markDown) {
+    public BoardImage(String originalImageName, String uploadImageUrl, String uploadImageName, ImageType imageType, String markDown) {
         this.originalImageName = originalImageName;
         this.uploadImageUrl = uploadImageUrl;
         this.uploadImageName = uploadImageName;
         this.imageType = imageType;
-        this.isSuccessUpload = isSuccessUpload;
         this.markDown = markDown;
 
     }
@@ -57,7 +53,7 @@ public class BoardImage {
     public static BoardImage createBoardImage(String originalImageName, String uploadImageUrl, String uploadImageName,
                                               ImageType imageType, boolean isSuccessUpload, String markDown) {
         return new BoardImage().builder().originalImageName(originalImageName).uploadImageUrl(uploadImageUrl)
-                .imageType(imageType).isSuccessUpload(isSuccessUpload).markDown(markDown).build();
+                .imageType(imageType).markDown(markDown).build();
     }
 
     public static List<BoardImage> createBoardImageList(BoardRequest request) {
@@ -66,6 +62,7 @@ public class BoardImage {
                 .uploadImageUrl(i.getUploadImageUrl())
                 .uploadImageName(i.getUploadImageName())
                 .imageType(i.getImageType())
+                .markDown(i.getMarkDown())
                 .build()).collect(Collectors.toList());
 
     }

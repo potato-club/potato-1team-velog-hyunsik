@@ -20,4 +20,6 @@ public class BoardImageRequest {
 
     @Enumerated(EnumType.STRING)
     private ImageType imageType;
+
+    private String markDown;
 }

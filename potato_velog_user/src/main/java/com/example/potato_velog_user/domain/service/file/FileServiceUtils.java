@@ -56,7 +56,7 @@ public class FileServiceUtils {
     }
 
     public static String getFileName(File uploadFile, String uuid, String mainImage) {
-       return uuid + "/" + mainImage + UUID.randomUUID() + "_" + uploadFile.getName();
+       return uuid + "/" + mainImage + "/" + UUID.randomUUID() + "_" + uploadFile.getName();
     }
 
     // S3로 업로드

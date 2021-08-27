@@ -26,19 +26,14 @@ public class BoardImageResponse {
     @Enumerated(EnumType.STRING)
     private ImageType imageType;
 
-    @JsonProperty
-    private boolean isSuccessUpload;
-
     private String markDown;
 
     @Builder
-    public BoardImageResponse(String originalImageName, String uploadImageUrl, String uploadImageName, ImageType imageType,
-                              boolean isSuccessUpload, String markDown) {
+    public BoardImageResponse(String originalImageName, String uploadImageUrl, String uploadImageName, ImageType imageType, String markDown) {
         this.originalImageName = originalImageName;
         this.uploadImageUrl = uploadImageUrl;
         this.uploadImageName = uploadImageName;
         this.imageType = imageType;
-        this.isSuccessUpload = isSuccessUpload;
         this.markDown = markDown;
     }
 
@@ -47,18 +42,18 @@ public class BoardImageResponse {
                 .originalImageName(i.getOriginalImageName())
                 .uploadImageUrl(i.getUploadImageUrl())
                 .uploadImageName(i.getUploadImageName())
-                .imageType(i.getImageType()).build())
+                .imageType(i.getImageType())
+                .markDown(i.getMarkDown()).build())
                 .collect(Collectors.toList());
     }
 
     public static BoardImageResponse createBoardImage(String originalName, String uploadImageUrl, String uploadImageName,
-                                                      ImageType imageType, boolean isSuccessUpload, String markDown) {
+                                                      ImageType imageType, String markDown) {
         return new BoardImageResponse().builder()
                 .originalImageName(originalName)
                 .uploadImageUrl(uploadImageUrl)
                 .uploadImageName(uploadImageName)
                 .imageType(imageType)
-                .isSuccessUpload(isSuccessUpload)
                 .markDown(markDown)
                 .build();
     }

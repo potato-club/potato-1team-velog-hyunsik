@@ -21,8 +21,6 @@ public class BoardRequest {
     @Size(min = 10, max = 1000)
     private String content;
 
-    private Long userId;
-
     private BoardSeriesRequest boardSeriesRequest;
 
     private BoardInfoRequest boardInfoRequest;

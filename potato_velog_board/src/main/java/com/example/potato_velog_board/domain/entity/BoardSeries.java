@@ -4,10 +4,13 @@ import com.example.potato_velog_board.web.dto.request.BoardRequest;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.util.StringUtils;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+
+import static javax.persistence.CascadeType.*;
 
 @Entity
 @Getter
@@ -20,7 +23,7 @@ public class BoardSeries {
 
     private String name;
 
-    @OneToMany(mappedBy = "boardSeries")
+    @OneToMany(mappedBy = "boardSeries", cascade = ALL)
     private final List<Board> boardList = new ArrayList<>();
 
 

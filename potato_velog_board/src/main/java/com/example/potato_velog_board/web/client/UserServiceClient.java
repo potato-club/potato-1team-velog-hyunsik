@@ -7,6 +7,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 @FeignClient("potato-velog-user")
 public interface UserServiceClient {
     @PostMapping("validateToken")
-    Long validateToken(@RequestBody String token);
+    String validateToken(@RequestBody String token);
 
 }
