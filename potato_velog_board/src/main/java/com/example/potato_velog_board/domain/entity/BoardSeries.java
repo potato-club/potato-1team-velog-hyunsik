@@ -31,7 +31,9 @@ public class BoardSeries {
         this.name = name;
     }
 
-    public static BoardSeries createBoardSeries(BoardRequest request) {
+    public static BoardSeries of(BoardRequest request) {
         return new BoardSeries(request.getBoardSeriesRequest().getName());
     }
+
+
 }

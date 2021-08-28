@@ -6,6 +6,7 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.util.StringUtils;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -58,6 +59,7 @@ public class Board extends BaseTimeEntity {
         this.uuid = uuid;
     }
 
+
     //연관 관계 메소드
     public void addBoardSeries(BoardSeries boardSeries) {
         this.boardSeries = boardSeries;
@@ -93,9 +95,14 @@ public class Board extends BaseTimeEntity {
     }
 
 
+
+
+
     public static Board of(Board board, BoardSeries boardSeries, BoardInfo boardInfo, List<HashTag> hashTagList,
                            List<BoardImage> boardImageList) {
-        board.addBoardSeries(boardSeries);
+        if(StringUtils.hasText(boardSeries.getName())){
+            board.addBoardSeries(boardSeries);
+        }
         board.addBoardInfo(boardInfo);
         for (HashTag hashTag : hashTagList) {
             board.addHashTag(hashTag);

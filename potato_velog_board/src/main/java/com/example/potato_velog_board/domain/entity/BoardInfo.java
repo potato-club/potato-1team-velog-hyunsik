@@ -38,7 +38,7 @@ public class BoardInfo {
         this.boardUrl = boardUrl;
     }
 
-    public static BoardInfo createBoardInfo(BoardRequest request) {
+    public static BoardInfo of(BoardRequest request) {
         return new BoardInfo().builder()
                 .introduce(request.getBoardInfoRequest().getIntroduce())
                 .likeCount(0)

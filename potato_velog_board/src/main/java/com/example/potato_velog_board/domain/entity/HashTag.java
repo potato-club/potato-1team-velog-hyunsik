@@ -1,6 +1,7 @@
 package com.example.potato_velog_board.domain.entity;
 
 import com.example.potato_velog_board.web.dto.request.BoardRequest;
+import com.example.potato_velog_board.web.dto.request.HashTagRequest;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -32,14 +33,18 @@ public class HashTag {
         this.name = name;
     }
 
+
+
     // 연관 관계 메소드
     public void addBoard(Board board) {
         this.board =board;
     }
 
 
-    public static List<HashTag> createHashTagList(BoardRequest request) {
+    public static List<HashTag> of(BoardRequest request) {
        return request.getHashTagRequestList().stream().map(i -> new HashTag(i.getName())).collect(Collectors.toList());
     }
+
+
 
 }

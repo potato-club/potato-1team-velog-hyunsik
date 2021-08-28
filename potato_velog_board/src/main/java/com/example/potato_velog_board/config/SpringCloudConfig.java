@@ -3,7 +3,9 @@ package com.example.potato_velog_board.config;
 import com.example.potato_velog_board.web.error.FeignErrorDecoder;
 import feign.Logger;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
+@Configuration
 public class SpringCloudConfig {
 
     @Bean

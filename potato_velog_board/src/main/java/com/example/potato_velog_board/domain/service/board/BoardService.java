@@ -10,4 +10,8 @@ public interface BoardService {
     BoardResponse createBoard(BoardRequest request, String uuid);
 
     List<BoardResponse> retrieveBoardList(String token);
+
+    BoardResponse updateBoard(BoardRequest request, Long id, String uuid);
+
+    String deleteBoard(Long id, String uuid);
 }

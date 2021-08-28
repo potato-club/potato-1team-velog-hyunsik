@@ -5,6 +5,7 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +39,15 @@ public class BoardResponse {
     
 
     public static BoardResponse of(Board board){
+        if (board.getBoardSeries() == null) {
+            return new BoardResponse().builder()
+                    .title(board.getTitle())
+                    .content(board.getContent())
+                    .boardInfoResponse(BoardInfoResponse.of(board))
+                    .boardImageResponseList(BoardImageResponse.of(board))
+                    .hashTagResponseList(HashTagResponse.of(board))
+                    .build();
+        }
         return new BoardResponse().builder()
                 .title(board.getTitle())
                 .content(board.getContent())

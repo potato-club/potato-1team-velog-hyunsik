@@ -1,7 +1,6 @@
 package com.example.potato_velog_board.web.controller;
 
 import com.example.potato_velog_board.domain.service.board.BoardService;
-import com.example.potato_velog_board.utils.Result;
 import com.example.potato_velog_board.utils.validation.ValidationUtils;
 import com.example.potato_velog_board.web.client.UserServiceClient;
 import com.example.potato_velog_board.web.dto.request.BoardRequest;
@@ -25,11 +24,28 @@ public class BoardController {
     private final UserServiceClient userServiceClient;
 
     @PostMapping("createBoard")
-    public Result<BoardResponse> createBoard(@Valid @RequestBody BoardRequest request, BindingResult bindingResult, @RequestHeader(name = "Authorization") String token) throws BindException {
+    public ResponseEntity<BoardResponse> createBoard(@Valid @RequestBody BoardRequest request, BindingResult bindingResult, @RequestHeader(name = "Authorization") String token) throws BindException {
         ValidationUtils.validateBindingResult(bindingResult);
-        String uuid = userServiceClient.validateToken(token);
-        return Result.success(boardService.createBoard(request, uuid));
+        final String uuid = userServiceClient.validateToken(token);
+        return ResponseEntity.ok(boardService.createBoard(request, uuid));
     }
+
+    @PostMapping("updateBoard/{boardId}")
+    public ResponseEntity<BoardResponse> updateBoard(@Valid @RequestBody BoardRequest request, BindingResult bindingResult,
+                                             @PathVariable("boardId") Long id,
+                                             @RequestHeader(name = "Authorization") String token) throws BindException {
+        ValidationUtils.validateBindingResult(bindingResult);
+        final String uuid = userServiceClient.validateToken(token);
+        return ResponseEntity.ok(boardService.updateBoard(request, id, uuid));
+    }
+
+    @DeleteMapping("deleteBoard/{boardId}")
+    public ResponseEntity<String> deleteBoard(@PathVariable("boardId") Long id,
+                                                     @RequestHeader(name = "Authorization") String token) throws BindException {
+        final String uuid = userServiceClient.validateToken(token);
+        return ResponseEntity.ok(boardService.deleteBoard(id, uuid));
+    }
+
 
     @GetMapping("myBoardList")
     public ResponseEntity<List<BoardResponse>> myBoardList(@RequestHeader(name = "Authorization") String token) {

@@ -1,5 +1,6 @@
 package com.example.potato_velog_board.domain.service.board;
 
+import com.example.potato_velog_board.domain.entity.Board;
 import com.example.potato_velog_board.domain.repository.BoardRepository;
 import com.example.potato_velog_board.web.client.UserServiceClient;
 import com.example.potato_velog_board.web.dto.request.BoardRequest;
@@ -26,8 +27,25 @@ public class BoardServiceImpl implements BoardService {
         return BoardResponse.of(boardRepository.save(BoardServiceUtils.createBoard(request, uuid)));
     }
 
+    @Transactional
+    @Override
+    public BoardResponse updateBoard(BoardRequest request, Long id, String uuid) {
+        final Board board = BoardServiceUtils.validateExistBoard(boardRepository, id, uuid);
+        return BoardResponse.of(boardRepository.save(BoardServiceUtils.updateBoard(boardRepository, request, board, uuid)));
+    }
+
+    @Transactional
+    @Override
+    public String deleteBoard(Long id, String uuid) {
+        final Board board = BoardServiceUtils.validateExistBoard(boardRepository, id, uuid);
+        boardRepository.delete(board);
+        return "게시글 삭제 성공 id = " + id;
+    }
+
     @Override
     public List<BoardResponse> retrieveBoardList(String token) {
         return null;
     }
+
+
 }

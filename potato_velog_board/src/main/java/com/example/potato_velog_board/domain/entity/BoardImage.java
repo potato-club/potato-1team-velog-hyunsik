@@ -1,5 +1,6 @@
 package com.example.potato_velog_board.domain.entity;
 
+import com.example.potato_velog_board.web.dto.request.BoardImageRequest;
 import com.example.potato_velog_board.web.dto.request.BoardRequest;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -46,24 +47,22 @@ public class BoardImage {
 
     }
 
+
+
     public void addBoard(Board board) {
         this.board = board;
     }
 
     public static BoardImage createBoardImage(String originalImageName, String uploadImageUrl, String uploadImageName,
-                                              ImageType imageType, boolean isSuccessUpload, String markDown) {
-        return new BoardImage().builder().originalImageName(originalImageName).uploadImageUrl(uploadImageUrl)
-                .imageType(imageType).markDown(markDown).build();
+                                              ImageType imageType, String markDown) {
+        return new BoardImage(originalImageName, uploadImageUrl, uploadImageName, imageType, markDown);
     }
 
-    public static List<BoardImage> createBoardImageList(BoardRequest request) {
-        return request.getBoardImageRequestList().stream().map(i -> new BoardImage().builder()
-                .originalImageName(i.getOriginalImageName())
-                .uploadImageUrl(i.getUploadImageUrl())
-                .uploadImageName(i.getUploadImageName())
-                .imageType(i.getImageType())
-                .markDown(i.getMarkDown())
-                .build()).collect(Collectors.toList());
+    public static List<BoardImage> of(BoardRequest request) {
+        return request.getBoardImageRequestList().stream().map(i ->
+                new BoardImage(i.getOriginalImageName(),i.getUploadImageUrl(),
+                        i.getUploadImageName(),i.getImageType(),i.getMarkDown()))
+                .collect(Collectors.toList());
 
     }
 
