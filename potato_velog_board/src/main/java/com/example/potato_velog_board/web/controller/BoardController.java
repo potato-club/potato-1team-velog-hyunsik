@@ -39,7 +39,7 @@ public class BoardController {
         return ResponseEntity.ok(boardService.updateBoard(request, id, uuid));
     }
 
-    @DeleteMapping("deleteBoard/{boardId}")
+    @PostMapping("deleteBoard/{boardId}")
     public ResponseEntity<String> deleteBoard(@PathVariable("boardId") Long id,
                                                      @RequestHeader(name = "Authorization") String token) throws BindException {
         final String uuid = userServiceClient.validateToken(token);
