@@ -99,9 +99,51 @@ class BoardServiceTest {
         boardService.createBoard(boardRequest,uuid);
         final BoardRequest updateRequest = TestServiceUtils.updateBoardRequest();
         //then
-        assertThatThrownBy(() -> boardService.updateBoard(updateRequest, 2L, uuid))
+        assertThatThrownBy(() -> boardService.updateBoard(updateRequest, 100L, uuid))
                 .isInstanceOf(NotFoundException.class)
                 .hasMessage(ErrorCode.NOT_FOUND_EXCEPTION_BOARD.getMessage());
+
+    }
+
+    @Test
+    @DisplayName("게시판 게시글 삭제 성공")
+    void deleteBoard() {
+        //given
+        String uuid = "123";
+        final BoardRequest boardRequest = TestServiceUtils.createBoardRequest();
+        boardService.createBoard(boardRequest,uuid);
+        //when
+        final String result = boardService.deleteBoard(1L, "123");
+        //then
+        assertThat(result).isEqualTo("게시글 삭제 성공 id = 1");
+    }
+
+    @Test
+    @DisplayName("게시판 게시글 삭제 실패 - 게시글 아이디가 다를때")
+    void deleteBoard_fail() {
+        //given
+        String uuid = "123";
+        final BoardRequest boardRequest = TestServiceUtils.createBoardRequest();
+        boardService.createBoard(boardRequest,uuid);
+        //then
+        assertThatThrownBy(() -> boardService.deleteBoard(100L, "123"))
+                .isInstanceOf(NotFoundException.class)
+                .hasMessage(ErrorCode.NOT_FOUND_EXCEPTION_BOARD.getMessage());
+
+    }
+
+    @Test
+    @DisplayName("게시판 게시글 삭제 실패 - 유저 아이디가 다를때")
+    void deleteBoard_fail2() {
+        //given
+        String uuid = "12312321312";
+        final BoardRequest boardRequest = TestServiceUtils.createBoardRequest();
+        boardService.createBoard(boardRequest,uuid);
+        //then
+        assertThatThrownBy(() -> boardService.deleteBoard(1L, "123"))
+                .isInstanceOf(NotFoundException.class)
+                .hasMessage(ErrorCode.NOT_FOUND_EXCEPTION_BOARD.getMessage());
+
 
     }
 
