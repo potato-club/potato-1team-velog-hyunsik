@@ -5,8 +5,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 public class HashTagRequest {
 
     private String name;
+
+    public HashTagRequest(String name) {
+        this.name = name;
+    }
 }

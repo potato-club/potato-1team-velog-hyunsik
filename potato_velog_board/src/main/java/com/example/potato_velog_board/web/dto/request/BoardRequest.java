@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Getter
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@NoArgsConstructor
 public class BoardRequest {
 
     @NotBlank
@@ -29,4 +29,14 @@ public class BoardRequest {
 
     private List<HashTagRequest> hashTagRequestList = new ArrayList<>();
 
+
+    public BoardRequest(String title, String content, BoardSeriesRequest boardSeriesRequest, BoardInfoRequest boardInfoRequest,
+                        List<BoardImageRequest> boardImageRequestList, List<HashTagRequest> hashTagRequestList) {
+        this.title = title;
+        this.content = content;
+        this.boardSeriesRequest = boardSeriesRequest;
+        this.boardInfoRequest = boardInfoRequest;
+        this.boardImageRequestList = boardImageRequestList;
+        this.hashTagRequestList = hashTagRequestList;
+    }
 }

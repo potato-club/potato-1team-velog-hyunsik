@@ -86,6 +86,11 @@ public class Board extends BaseTimeEntity {
         boardImage.addBoard(this);
     }
 
+    public void update(String title, String content) {
+        this.title = title;
+        this.content = content;
+    }
+
     public static Board createBoard(BoardRequest request, String uuid) {
         return new Board().builder()
                 .title(request.getTitle())
@@ -112,6 +117,7 @@ public class Board extends BaseTimeEntity {
         }
         return board;
     }
+
 
 
 }

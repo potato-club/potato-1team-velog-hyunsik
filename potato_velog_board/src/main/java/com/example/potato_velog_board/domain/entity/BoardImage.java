@@ -67,4 +67,16 @@ public class BoardImage {
     }
 
 
+    public void update(BoardImageRequest boardImageRequest) {
+        this.originalImageName = boardImageRequest.getOriginalImageName();
+        this.uploadImageUrl = boardImageRequest.getUploadImageUrl();
+        this.uploadImageName = boardImageRequest.getUploadImageName();
+        this.imageType = boardImageRequest.getImageType();
+        this.markDown = boardImageRequest.getMarkDown();
+    }
+
+    public static BoardImage DtoToEntity(BoardImageRequest boardImageRequest) {
+        return new BoardImage(boardImageRequest.getOriginalImageName(), boardImageRequest.getUploadImageUrl(), boardImageRequest.getUploadImageName(),
+                boardImageRequest.getImageType(), boardImageRequest.getMarkDown());
+    }
 }

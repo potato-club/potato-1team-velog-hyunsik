@@ -23,15 +23,15 @@ public class BoardServiceImpl implements BoardService {
 
     @Transactional
     @Override
-    public BoardResponse createBoard(BoardRequest request, String uuid) {
-        return BoardResponse.of(boardRepository.save(BoardServiceUtils.createBoard(request, uuid)));
+    public Board createBoard(BoardRequest request, String uuid) {
+        return boardRepository.save(BoardServiceUtils.createBoard(request, uuid));
     }
 
     @Transactional
     @Override
-    public BoardResponse updateBoard(BoardRequest request, Long id, String uuid) {
+    public Board updateBoard(BoardRequest request, Long id, String uuid) {
         final Board board = BoardServiceUtils.validateExistBoard(boardRepository, id, uuid);
-        return BoardResponse.of(boardRepository.save(BoardServiceUtils.updateBoard(boardRepository, request, board, uuid)));
+        return boardRepository.save(BoardServiceUtils.updateBoard(request, board));
     }
 
     @Transactional
@@ -42,10 +42,7 @@ public class BoardServiceImpl implements BoardService {
         return "게시글 삭제 성공 id = " + id;
     }
 
-    @Override
-    public List<BoardResponse> retrieveBoardList(String token) {
-        return null;
-    }
+
 
 
 }

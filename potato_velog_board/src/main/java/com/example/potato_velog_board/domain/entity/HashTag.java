@@ -46,5 +46,7 @@ public class HashTag {
     }
 
 
-
+    public void update(HashTagRequest hashTagRequest) {
+        this.name = hashTagRequest.getName();
+    }
 }

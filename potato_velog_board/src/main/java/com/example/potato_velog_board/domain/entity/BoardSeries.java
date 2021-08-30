@@ -1,6 +1,7 @@
 package com.example.potato_velog_board.domain.entity;
 
 import com.example.potato_velog_board.web.dto.request.BoardRequest;
+import com.example.potato_velog_board.web.dto.request.BoardSeriesRequest;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -36,4 +37,11 @@ public class BoardSeries {
     }
 
 
+    public void update(BoardSeriesRequest boardSeriesRequest) {
+        if (boardSeriesRequest == null) {
+           this.name = "";
+           return;
+        }
+        this.name = boardSeriesRequest.getName();
+    }
 }

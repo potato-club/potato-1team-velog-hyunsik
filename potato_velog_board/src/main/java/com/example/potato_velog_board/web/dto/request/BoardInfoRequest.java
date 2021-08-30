@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 import javax.validation.constraints.Size;
 
 @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 public class BoardInfoRequest {
 
     @Size(max = 30)
@@ -18,4 +18,10 @@ public class BoardInfoRequest {
     private boolean isPublic;
 
     private String boardUrl;
+
+    public BoardInfoRequest(@Size(max = 30) String introduce, boolean isPublic, String boardUrl) {
+        this.introduce = introduce;
+        this.isPublic = isPublic;
+        this.boardUrl = boardUrl;
+    }
 }

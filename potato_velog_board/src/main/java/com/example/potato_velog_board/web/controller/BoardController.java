@@ -27,7 +27,7 @@ public class BoardController {
     public ResponseEntity<BoardResponse> createBoard(@Valid @RequestBody BoardRequest request, BindingResult bindingResult, @RequestHeader(name = "Authorization") String token) throws BindException {
         ValidationUtils.validateBindingResult(bindingResult);
         final String uuid = userServiceClient.validateToken(token);
-        return ResponseEntity.ok(boardService.createBoard(request, uuid));
+        return ResponseEntity.ok(BoardResponse.of(boardService.createBoard(request, uuid)));
     }
 
     @PostMapping("updateBoard/{boardId}")
@@ -36,7 +36,7 @@ public class BoardController {
                                              @RequestHeader(name = "Authorization") String token) throws BindException {
         ValidationUtils.validateBindingResult(bindingResult);
         final String uuid = userServiceClient.validateToken(token);
-        return ResponseEntity.ok(boardService.updateBoard(request, id, uuid));
+        return ResponseEntity.ok(BoardResponse.of(boardService.updateBoard(request, id, uuid)));
     }
 
     @PostMapping("deleteBoard/{boardId}")
@@ -46,9 +46,17 @@ public class BoardController {
         return ResponseEntity.ok(boardService.deleteBoard(id, uuid));
     }
 
-
-    @GetMapping("myBoardList")
-    public ResponseEntity<List<BoardResponse>> myBoardList(@RequestHeader(name = "Authorization") String token) {
-        return ResponseEntity.ok(boardService.retrieveBoardList(token));
-    }
+    /**
+     * 필요한것 : 회원 썸네일, 회원 닉네임, 게시글 이미지, 게시글 제목, 게시글 내용, 해쉬태그, 날짜 : 2020년 X월 XX일, 댓글 개수
+     * 검색은 제목으로 찾기
+     * 만약 : 검색 시 #이 붙어있으면 해시태그로 검색
+     */
+//    @GetMapping("search")
+//    public ResponseEntity<List<BoardResponse>>
+//
+//
+//    @GetMapping("myBoardList")
+//    public ResponseEntity<List<BoardResponse>> myBoardList(@RequestHeader(name = "Authorization") String token) {
+//        return ResponseEntity.ok(boardService.retrieveBoardList(token));
+//    }
 }

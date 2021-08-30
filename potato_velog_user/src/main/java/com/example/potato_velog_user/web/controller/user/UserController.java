@@ -76,6 +76,10 @@ public class UserController {
         return ResponseEntity.ok(UserSocialInfoResponse.of(userService.updateSocialInfo(request, uuId)));
     }
 
+    /**
+     * 내가 쓴 게시글 모두 불러오기
+     * 필요한 것 : 제목, 내용, 사진, 날짜, 댓글 개수, 공개 비공개 여부
+     */
 
 
 }

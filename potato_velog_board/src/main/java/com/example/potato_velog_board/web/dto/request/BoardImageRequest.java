@@ -9,7 +9,7 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 
 @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 public class BoardImageRequest {
 
     private String originalImageName;
@@ -22,4 +22,12 @@ public class BoardImageRequest {
     private ImageType imageType;
 
     private String markDown;
+
+    public BoardImageRequest(String originalImageName, String uploadImageUrl, String uploadImageName, ImageType imageType, String markDown) {
+        this.originalImageName = originalImageName;
+        this.uploadImageUrl = uploadImageUrl;
+        this.uploadImageName = uploadImageName;
+        this.imageType = imageType;
+        this.markDown = markDown;
+    }
 }

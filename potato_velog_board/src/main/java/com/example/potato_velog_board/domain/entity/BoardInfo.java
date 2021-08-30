@@ -1,5 +1,6 @@
 package com.example.potato_velog_board.domain.entity;
 
+import com.example.potato_velog_board.web.dto.request.BoardInfoRequest;
 import com.example.potato_velog_board.web.dto.request.BoardRequest;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -21,8 +22,6 @@ public class BoardInfo {
 
     private String introduce;
 
-    private int likeCount;
-
     private boolean isPublic;
 
     private String boardUrl;
@@ -33,7 +32,6 @@ public class BoardInfo {
     @Builder
     public BoardInfo(String introduce, int likeCount, boolean isPublic, String boardUrl) {
         this.introduce = introduce;
-        this.likeCount = likeCount;
         this.isPublic = isPublic;
         this.boardUrl = boardUrl;
     }
@@ -45,6 +43,12 @@ public class BoardInfo {
                 .isPublic(request.getBoardInfoRequest().isPublic())
                 .boardUrl(request.getBoardInfoRequest().getBoardUrl())
                 .build();
+    }
+
+    public void update(BoardInfoRequest boardInfoRequest) {
+        this.introduce = boardInfoRequest.getIntroduce();
+        this.isPublic = boardInfoRequest.isPublic();
+        this.boardUrl = boardInfoRequest.getBoardUrl();
     }
 
 
