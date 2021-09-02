@@ -7,6 +7,7 @@ import com.example.potato_velog_user.utils.validation.ValidationUtils;
 import com.example.potato_velog_user.web.dto.user.request.SocialInfoRequest;
 import com.example.potato_velog_user.web.dto.user.request.UserInfoRequest;
 import com.example.potato_velog_user.web.dto.user.request.UserRequest;
+import com.example.potato_velog_user.web.dto.user.response.UserFeignResponse;
 import com.example.potato_velog_user.web.dto.user.response.UserInfoResponse;
 import com.example.potato_velog_user.web.dto.user.response.UserResponse;
 import com.example.potato_velog_user.web.dto.user.response.UserSocialInfoResponse;
@@ -74,6 +75,14 @@ public class UserController {
                                                                    @RequestHeader(name = "Authorization") String token) {
         final String uuId = authService.validateToken(token);
         return ResponseEntity.ok(UserSocialInfoResponse.of(userService.updateSocialInfo(request, uuId)));
+    }
+
+    /**
+     * 유저 정보 가져오기
+     */
+    @GetMapping("getUser")
+    public ResponseEntity<UserFeignResponse> getUser(@RequestParam String token) {
+        return ResponseEntity.ok(userService.getUser(token));
     }
 
     /**

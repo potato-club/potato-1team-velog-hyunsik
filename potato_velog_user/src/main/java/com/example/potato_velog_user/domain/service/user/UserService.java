@@ -8,6 +8,7 @@ import com.example.potato_velog_user.exception.NotFoundException;
 import com.example.potato_velog_user.web.dto.user.request.SocialInfoRequest;
 import com.example.potato_velog_user.web.dto.user.request.UserInfoRequest;
 import com.example.potato_velog_user.web.dto.user.request.UserRequest;
+import com.example.potato_velog_user.web.dto.user.response.UserFeignResponse;
 import org.springframework.validation.BindException;
 
 
@@ -21,4 +22,6 @@ public interface UserService {
     UserSocialInfo updateSocialInfo(SocialInfoRequest request, String uuId);
 
     UserInfo updateUserInfo(UserInfoRequest request, String uuId);
+
+    UserFeignResponse getUser(String token);
 }

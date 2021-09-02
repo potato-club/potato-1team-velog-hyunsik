@@ -1,8 +1,7 @@
-package com.example.potato_velog_board.web.dto.response;
+package com.example.potato_velog_board.web.dto.response.board;
 
-import com.example.potato_velog_board.domain.entity.Board;
-import com.example.potato_velog_board.domain.entity.ImageType;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.example.potato_velog_board.domain.entity.board.Board;
+import com.example.potato_velog_board.domain.entity.board.ImageType;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;

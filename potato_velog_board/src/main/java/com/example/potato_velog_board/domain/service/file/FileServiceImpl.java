@@ -1,21 +1,16 @@
 package com.example.potato_velog_board.domain.service.file;
 
 import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.model.CannedAccessControlList;
-import com.amazonaws.services.s3.model.PutObjectRequest;
-import com.example.potato_velog_board.domain.repository.BoardRepository;
 import com.example.potato_velog_board.exception.S3FileException;
 import com.example.potato_velog_board.utils.error.ErrorCode;
-import com.example.potato_velog_board.web.dto.response.BoardImageResponse;
+import com.example.potato_velog_board.web.dto.response.board.BoardImageResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
-import java.util.UUID;
 
 @Slf4j
 @Service

@@ -1,5 +1,6 @@
 package com.example.potato_velog_user.domain.service;
 
+import com.example.potato_velog_user.config.StorageConfig;
 import com.example.potato_velog_user.domain.entity.User;
 import com.example.potato_velog_user.domain.entity.UserInfo;
 import com.example.potato_velog_user.domain.entity.UserSocialInfo;
@@ -12,12 +13,17 @@ import com.example.potato_velog_user.web.dto.auth.request.LoginRequest;
 import com.example.potato_velog_user.web.dto.user.request.SocialInfoRequest;
 import com.example.potato_velog_user.web.dto.user.request.UserInfoRequest;
 import com.example.potato_velog_user.web.dto.user.request.UserRequest;
+import com.netflix.discovery.converters.Auto;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.restdocs.RestDocumentationExtension;
+import org.springframework.test.context.TestPropertySource;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindException;
 
@@ -27,6 +33,8 @@ import static org.assertj.core.api.Assertions.*;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 @SpringBootTest
+@TestPropertySource(locations="classpath:application.yml")
+@ExtendWith(RestDocumentationExtension.class)
 @Transactional
 class UserServiceTest {
 
@@ -36,6 +44,8 @@ class UserServiceTest {
     AuthService authService;
     @Autowired
     UserRepository userRepository;
+    @Autowired
+    StorageConfig storageConfig;
     @Autowired
     EntityManager em;
 

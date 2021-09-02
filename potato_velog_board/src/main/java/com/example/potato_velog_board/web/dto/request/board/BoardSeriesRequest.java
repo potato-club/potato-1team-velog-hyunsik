@@ -1,4 +1,4 @@
-package com.example.potato_velog_board.web.dto.request;
+package com.example.potato_velog_board.web.dto.request.board;
 
 import lombok.AccessLevel;
 import lombok.Getter;

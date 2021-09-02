@@ -1,7 +1,8 @@
-package com.example.potato_velog_board.domain.entity;
+package com.example.potato_velog_board.domain.entity.board;
 
-import com.example.potato_velog_board.web.dto.request.BoardRequest;
-import com.example.potato_velog_board.web.dto.request.HashTagRequest;
+import com.example.potato_velog_board.utils.BaseTimeEntity;
+import com.example.potato_velog_board.web.dto.request.board.BoardRequest;
+import com.example.potato_velog_board.web.dto.request.board.HashTagRequest;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,13 +11,12 @@ import javax.persistence.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static javax.persistence.FetchType.*;
 import static javax.persistence.FetchType.LAZY;
 
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class HashTag {
+public class HashTag extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

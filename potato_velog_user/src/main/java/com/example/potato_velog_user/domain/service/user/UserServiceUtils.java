@@ -18,8 +18,10 @@ public class UserServiceUtils {
         final User user = User.createUser(request.getEmail(), request.getName(), encodedPassword, request.getNickName(), request.getIntroduce());
         final UserInfo userInfo = UserInfo.createUserInfo(user.getNickName() + ".log", false, false);
         final UserSocialInfo userSocialInfo = UserSocialInfo.of(null, null, null, null, null);
+        final UserImage userImage = UserImage.of(null, null, null);
         userInfo.addUserSocialInfo(userSocialInfo);
         user.addUserInfo(userInfo);
+        user.addUserImage(userImage);
         return user;
     }
 

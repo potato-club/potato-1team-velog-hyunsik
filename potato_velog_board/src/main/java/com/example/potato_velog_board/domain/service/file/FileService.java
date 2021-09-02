@@ -1,9 +1,7 @@
 package com.example.potato_velog_board.domain.service.file;
 
-import com.example.potato_velog_board.web.dto.response.BoardImageResponse;
+import com.example.potato_velog_board.web.dto.response.board.BoardImageResponse;
 import org.springframework.web.multipart.MultipartFile;
-
-import java.io.IOException;
 
 public interface FileService {
 

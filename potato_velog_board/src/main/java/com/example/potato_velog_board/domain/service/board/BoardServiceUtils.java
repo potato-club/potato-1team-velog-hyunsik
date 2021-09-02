@@ -1,17 +1,15 @@
 package com.example.potato_velog_board.domain.service.board;
 
-import com.example.potato_velog_board.domain.entity.*;
+import com.example.potato_velog_board.domain.entity.board.*;
 import com.example.potato_velog_board.domain.repository.BoardRepository;
 import com.example.potato_velog_board.exception.NotFoundException;
 import com.example.potato_velog_board.utils.error.ErrorCode;
-import com.example.potato_velog_board.web.dto.request.BoardImageRequest;
-import com.example.potato_velog_board.web.dto.request.BoardRequest;
-import com.example.potato_velog_board.web.dto.request.HashTagRequest;
+import com.example.potato_velog_board.web.dto.request.board.BoardRequest;
+import com.example.potato_velog_board.web.dto.request.board.BoardSeriesRequest;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class BoardServiceUtils {
@@ -34,6 +32,8 @@ public class BoardServiceUtils {
         updateHashTag(request,board);
         return board;
     }
+
+
 
     public static Board validateExistBoard(BoardRepository boardRepository, Long id, String uuid) {
        return boardRepository.findByIdAndUuid(id, uuid).orElseThrow(() -> new NotFoundException(ErrorCode.NOT_FOUND_EXCEPTION_BOARD));

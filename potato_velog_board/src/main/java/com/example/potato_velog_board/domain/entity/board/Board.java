@@ -1,7 +1,7 @@
-package com.example.potato_velog_board.domain.entity;
+package com.example.potato_velog_board.domain.entity.board;
 
 import com.example.potato_velog_board.utils.BaseTimeEntity;
-import com.example.potato_velog_board.web.dto.request.BoardRequest;
+import com.example.potato_velog_board.web.dto.request.board.BoardRequest;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -12,9 +12,7 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import static javax.persistence.CascadeType.*;
 import static javax.persistence.CascadeType.ALL;
-import static javax.persistence.FetchType.*;
 import static javax.persistence.FetchType.LAZY;
 
 @Entity
@@ -105,9 +103,8 @@ public class Board extends BaseTimeEntity {
 
     public static Board of(Board board, BoardSeries boardSeries, BoardInfo boardInfo, List<HashTag> hashTagList,
                            List<BoardImage> boardImageList) {
-        if(StringUtils.hasText(boardSeries.getName())){
-            board.addBoardSeries(boardSeries);
-        }
+
+        board.addBoardSeries(boardSeries);
         board.addBoardInfo(boardInfo);
         for (HashTag hashTag : hashTagList) {
             board.addHashTag(hashTag);

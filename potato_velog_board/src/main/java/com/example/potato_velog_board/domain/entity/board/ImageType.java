@@ -1,4 +1,4 @@
-package com.example.potato_velog_board.domain.entity;
+package com.example.potato_velog_board.domain.entity.board;
 
 import lombok.Getter;
 

@@ -1,7 +1,7 @@
-package com.example.potato_velog_board.domain.service.board;
+package com.example.potato_velog_board.domain.service.utils;
 
-import com.example.potato_velog_board.domain.entity.ImageType;
-import com.example.potato_velog_board.web.dto.request.*;
+import com.example.potato_velog_board.domain.entity.board.ImageType;
+import com.example.potato_velog_board.web.dto.request.board.*;
 
 import java.util.ArrayList;
 import java.util.List;

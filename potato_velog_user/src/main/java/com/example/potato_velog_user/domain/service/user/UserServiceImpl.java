@@ -4,6 +4,7 @@ import com.example.potato_velog_user.domain.entity.User;
 import com.example.potato_velog_user.domain.entity.UserInfo;
 import com.example.potato_velog_user.domain.entity.UserSocialInfo;
 import com.example.potato_velog_user.domain.repository.user.UserRepository;
+import com.example.potato_velog_user.domain.service.auth.AuthService;
 import com.example.potato_velog_user.exception.AlreadyExistException;
 import com.example.potato_velog_user.exception.NotFoundException;
 import com.example.potato_velog_user.utils.error.ErrorCode;
@@ -11,6 +12,7 @@ import com.example.potato_velog_user.web.client.BoardServiceClient;
 import com.example.potato_velog_user.web.dto.user.request.SocialInfoRequest;
 import com.example.potato_velog_user.web.dto.user.request.UserInfoRequest;
 import com.example.potato_velog_user.web.dto.user.request.UserRequest;
+import com.example.potato_velog_user.web.dto.user.response.UserFeignResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -22,6 +24,7 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
+    private final AuthService authService;
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final BoardServiceClient boardServiceClient;
@@ -37,7 +40,15 @@ public class UserServiceImpl implements UserService {
 
     }
 
-
+    @Override
+    public UserFeignResponse getUser(String token) {
+        final String uuid = authService.validateToken(token);
+        final User user = userRepository.findByUuid(uuid).orElseThrow(() -> new NotFoundException(ErrorCode.NOT_FOUND_EXCEPTION_USER));
+        System.out.println("user.toString() = " + user.toString());
+        final UserFeignResponse response = UserFeignResponse.of(user.getUuid(), user.getNickName(), user.getUserImage().getUploadImageUrl());
+        System.out.println("response = " + response.toString());
+        return response;
+    }
 
 
     @Transactional
@@ -46,6 +57,8 @@ public class UserServiceImpl implements UserService {
         User findUser = userRepository.findByUuid(uuid).orElseThrow(() -> new NotFoundException(ErrorCode.NOT_FOUND_EXCEPTION_USER));
         return UserServiceUtils.updateUserInfo(userRepository, findUser, request);
     }
+
+
 
     @Transactional
     @Override

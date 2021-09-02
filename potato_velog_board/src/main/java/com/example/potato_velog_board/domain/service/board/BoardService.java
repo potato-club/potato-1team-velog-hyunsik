@@ -1,10 +1,7 @@
 package com.example.potato_velog_board.domain.service.board;
 
-import com.example.potato_velog_board.domain.entity.Board;
-import com.example.potato_velog_board.web.dto.request.BoardRequest;
-import com.example.potato_velog_board.web.dto.response.BoardResponse;
-
-import java.util.List;
+import com.example.potato_velog_board.domain.entity.board.Board;
+import com.example.potato_velog_board.web.dto.request.board.BoardRequest;
 
 public interface BoardService {
 
@@ -13,4 +10,5 @@ public interface BoardService {
     Board updateBoard(BoardRequest request, Long id, String uuid);
 
     String deleteBoard(Long id, String uuid);
+
 }

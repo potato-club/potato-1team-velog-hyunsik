@@ -1,7 +1,8 @@
-package com.example.potato_velog_board.domain.entity;
+package com.example.potato_velog_board.domain.entity.board;
 
-import com.example.potato_velog_board.web.dto.request.BoardImageRequest;
-import com.example.potato_velog_board.web.dto.request.BoardRequest;
+import com.example.potato_velog_board.utils.BaseTimeEntity;
+import com.example.potato_velog_board.web.dto.request.board.BoardImageRequest;
+import com.example.potato_velog_board.web.dto.request.board.BoardRequest;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -16,7 +17,7 @@ import static javax.persistence.FetchType.LAZY;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class BoardImage {
+public class BoardImage extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

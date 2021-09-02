@@ -1,11 +1,10 @@
-package com.example.potato_velog_board.web.dto.response;
+package com.example.potato_velog_board.web.dto.response.board;
 
-import com.example.potato_velog_board.domain.entity.Board;
+import com.example.potato_velog_board.domain.entity.board.Board;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;

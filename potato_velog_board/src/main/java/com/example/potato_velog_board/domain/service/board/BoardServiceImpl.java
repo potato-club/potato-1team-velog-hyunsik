@@ -1,16 +1,13 @@
 package com.example.potato_velog_board.domain.service.board;
 
-import com.example.potato_velog_board.domain.entity.Board;
+import com.example.potato_velog_board.domain.entity.board.Board;
 import com.example.potato_velog_board.domain.repository.BoardRepository;
 import com.example.potato_velog_board.web.client.UserServiceClient;
-import com.example.potato_velog_board.web.dto.request.BoardRequest;
-import com.example.potato_velog_board.web.dto.response.BoardResponse;
+import com.example.potato_velog_board.web.dto.request.board.BoardRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 @Slf4j
 @Service
@@ -41,8 +38,6 @@ public class BoardServiceImpl implements BoardService {
         boardRepository.delete(board);
         return "게시글 삭제 성공 id = " + id;
     }
-
-
 
 
 }

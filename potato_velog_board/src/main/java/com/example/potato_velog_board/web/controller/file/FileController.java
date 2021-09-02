@@ -1,8 +1,8 @@
-package com.example.potato_velog_board.web.controller;
+package com.example.potato_velog_board.web.controller.file;
 
 import com.example.potato_velog_board.domain.service.file.FileService;
 import com.example.potato_velog_board.web.client.UserServiceClient;
-import com.example.potato_velog_board.web.dto.response.BoardImageResponse;
+import com.example.potato_velog_board.web.dto.response.board.BoardImageResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;

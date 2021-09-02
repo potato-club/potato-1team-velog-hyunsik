@@ -1,10 +1,11 @@
-package com.example.potato_velog_board.web.controller;
+package com.example.potato_velog_board.web.controller.board;
 
 import com.example.potato_velog_board.domain.service.board.BoardService;
+import com.example.potato_velog_board.domain.service.comment.CommentService;
 import com.example.potato_velog_board.utils.validation.ValidationUtils;
 import com.example.potato_velog_board.web.client.UserServiceClient;
-import com.example.potato_velog_board.web.dto.request.BoardRequest;
-import com.example.potato_velog_board.web.dto.response.BoardResponse;
+import com.example.potato_velog_board.web.dto.request.board.BoardRequest;
+import com.example.potato_velog_board.web.dto.response.board.BoardResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +14,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
 
 @RestController
 @Slf4j
@@ -21,6 +21,7 @@ import java.util.List;
 public class BoardController {
 
     private final BoardService boardService;
+    private final CommentService commentService;
     private final UserServiceClient userServiceClient;
 
     @PostMapping("createBoard")
@@ -46,17 +47,24 @@ public class BoardController {
         return ResponseEntity.ok(boardService.deleteBoard(id, uuid));
     }
 
+
+
+//    /**
+//     * 사진, 제목, 내용, 공개 비공개 여부, 댓글 개수, 날짜
+//     * @param token
+//     * @return
+//     */
+//
+//    @GetMapping("myBoardList")
+//    public ResponseEntity<List<MyBoardReponse>> getMyBoardList(@RequestHeader(name = "Authorization") String token) {
+//
+//    }
+
+
     /**
      * 필요한것 : 회원 썸네일, 회원 닉네임, 게시글 이미지, 게시글 제목, 게시글 내용, 해쉬태그, 날짜 : 2020년 X월 XX일, 댓글 개수
      * 검색은 제목으로 찾기
      * 만약 : 검색 시 #이 붙어있으면 해시태그로 검색
      */
-//    @GetMapping("search")
-//    public ResponseEntity<List<BoardResponse>>
-//
-//
-//    @GetMapping("myBoardList")
-//    public ResponseEntity<List<BoardResponse>> myBoardList(@RequestHeader(name = "Authorization") String token) {
-//        return ResponseEntity.ok(boardService.retrieveBoardList(token));
-//    }
+
 }
