@@ -9,6 +9,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Slf4j
 @Service
 @Transactional(readOnly = true)
@@ -16,7 +18,6 @@ import org.springframework.transaction.annotation.Transactional;
 public class BoardServiceImpl implements BoardService {
 
     private final BoardRepository boardRepository;
-    private final UserServiceClient userServiceClient;
 
     @Transactional
     @Override
@@ -37,6 +38,11 @@ public class BoardServiceImpl implements BoardService {
         final Board board = BoardServiceUtils.validateExistBoard(boardRepository, id, uuid);
         boardRepository.delete(board);
         return "게시글 삭제 성공 id = " + id;
+    }
+
+    @Override
+    public List<Board> getMyBoardList(String uuid) {
+       return boardRepository.findByUuidOrderByIdDesc(uuid);
     }
 
 

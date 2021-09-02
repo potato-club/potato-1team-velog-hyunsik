@@ -33,4 +33,6 @@ public class CommentController {
         final Comment comment = commentService.writeComment(request, user, id);
         return ResponseEntity.ok(CommentResponse.of(comment));
     }
+
+
 }

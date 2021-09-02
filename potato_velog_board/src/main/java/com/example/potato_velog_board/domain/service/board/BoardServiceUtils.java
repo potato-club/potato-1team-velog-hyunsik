@@ -5,11 +5,12 @@ import com.example.potato_velog_board.domain.repository.BoardRepository;
 import com.example.potato_velog_board.exception.NotFoundException;
 import com.example.potato_velog_board.utils.error.ErrorCode;
 import com.example.potato_velog_board.web.dto.request.board.BoardRequest;
-import com.example.potato_velog_board.web.dto.request.board.BoardSeriesRequest;
+import com.example.potato_velog_board.web.dto.response.board.MyBoardResponse;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class BoardServiceUtils {
@@ -55,4 +56,7 @@ public class BoardServiceUtils {
         }
     }
 
+    public static List<MyBoardResponse> boardToMyBoardResponse(List<Board> myBoardList) {
+       return myBoardList.stream().map(i -> MyBoardResponse.of(i)).collect(Collectors.toList());
+    }
 }

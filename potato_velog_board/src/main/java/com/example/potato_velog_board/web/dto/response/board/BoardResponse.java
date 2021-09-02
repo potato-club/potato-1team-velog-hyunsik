@@ -1,6 +1,7 @@
 package com.example.potato_velog_board.web.dto.response.board;
 
 import com.example.potato_velog_board.domain.entity.board.Board;
+import com.example.potato_velog_board.domain.entity.board.Comment;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -25,8 +26,10 @@ public class BoardResponse {
 
     private List<HashTagResponse> hashTagResponseList = new ArrayList<>();
 
+
     @Builder
-    public BoardResponse(String title, String content, BoardSeriesResponse boardSeriesResponse, BoardInfoResponse boardInfoResponse, List<BoardImageResponse> boardImageResponseList, List<HashTagResponse> hashTagResponseList) {
+    public BoardResponse(String title, String content, BoardSeriesResponse boardSeriesResponse, BoardInfoResponse boardInfoResponse,
+                         List<BoardImageResponse> boardImageResponseList, List<HashTagResponse> hashTagResponseList) {
         this.title = title;
         this.content = content;
         this.boardSeriesResponse = boardSeriesResponse;

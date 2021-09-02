@@ -3,6 +3,8 @@ package com.example.potato_velog_board.domain.service.board;
 import com.example.potato_velog_board.domain.entity.board.Board;
 import com.example.potato_velog_board.web.dto.request.board.BoardRequest;
 
+import java.util.List;
+
 public interface BoardService {
 
     Board createBoard(BoardRequest request, String uuid);
@@ -11,4 +13,5 @@ public interface BoardService {
 
     String deleteBoard(Long id, String uuid);
 
+    List<Board> getMyBoardList(String uuid);
 }

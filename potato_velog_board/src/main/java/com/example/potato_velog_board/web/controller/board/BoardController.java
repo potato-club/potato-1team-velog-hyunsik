@@ -1,11 +1,12 @@
 package com.example.potato_velog_board.web.controller.board;
 
 import com.example.potato_velog_board.domain.service.board.BoardService;
-import com.example.potato_velog_board.domain.service.comment.CommentService;
+import com.example.potato_velog_board.domain.service.board.BoardServiceUtils;
 import com.example.potato_velog_board.utils.validation.ValidationUtils;
 import com.example.potato_velog_board.web.client.UserServiceClient;
 import com.example.potato_velog_board.web.dto.request.board.BoardRequest;
 import com.example.potato_velog_board.web.dto.response.board.BoardResponse;
+import com.example.potato_velog_board.web.dto.response.board.MyBoardResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +15,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @Slf4j
@@ -21,7 +23,6 @@ import javax.validation.Valid;
 public class BoardController {
 
     private final BoardService boardService;
-    private final CommentService commentService;
     private final UserServiceClient userServiceClient;
 
     @PostMapping("createBoard")
@@ -48,17 +49,17 @@ public class BoardController {
     }
 
 
+    /**
+     * 사진, 제목, 내용, 공개 비공개 여부, 댓글 개수, 날짜
+     * @param token
+     * @return
+     */
 
-//    /**
-//     * 사진, 제목, 내용, 공개 비공개 여부, 댓글 개수, 날짜
-//     * @param token
-//     * @return
-//     */
-//
-//    @GetMapping("myBoardList")
-//    public ResponseEntity<List<MyBoardReponse>> getMyBoardList(@RequestHeader(name = "Authorization") String token) {
-//
-//    }
+    @GetMapping("myBoardList")
+    public ResponseEntity<List<MyBoardResponse>> getMyBoardList(@RequestHeader(name = "Authorization") String token) {
+        final String uuid = userServiceClient.validateToken(token);
+        return ResponseEntity.ok(BoardServiceUtils.boardToMyBoardResponse(boardService.getMyBoardList(uuid)));
+    }
 
 
     /**
